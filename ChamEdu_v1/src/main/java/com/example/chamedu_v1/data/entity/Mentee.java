@@ -20,20 +20,29 @@ public class Mentee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "menteeId")
-    private Long menteeId;
+    private int menteeId;
 
+
+    @Column(nullable = false, unique = true)
+    private String userId;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String nickname;
 
     @Column(nullable = false)
     private String name;
 
-    @Email
-    @Column(nullable = false)
-    private String email;
+    @Column
+    private String highshool;
+
+    @Column
+    private String info;
+
+    @Column
+    private String wishUniv;
+
 
 }
