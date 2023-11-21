@@ -6,18 +6,22 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://chamedu-mysql.ckoldtvydv7j.ap-northeast-2.rds.amazonaws.com:3306/chamdb
+    url: jdbc:mysql://chamedu-mysql.ckoldtvydv7j.ap-northeast-2.rds.amazonaws.com:3306/chamdb?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: admin
     password: chamedu23
+
+
 
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: false
+    show-sql: true
 
     properties:
       hibernate:
         format_sql: true
+
+
 
 
 #logging:

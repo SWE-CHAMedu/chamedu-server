@@ -1,4 +1,4 @@
-package com.example.chamedu_v1.entity;
+package com.example.chamedu_v1.data.entity;
 
 import jakarta.validation.constraints.Email;
 
@@ -20,7 +20,7 @@ public class Mentee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "menteeId")
-    private String menteeId;
+    private Long menteeId;
 
 
     @Column(nullable = false)
