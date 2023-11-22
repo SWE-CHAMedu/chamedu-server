@@ -33,5 +33,9 @@ public class Payment {
     @JoinColumn(name = "mentee_id")
     private Mentee mentee;
 
+    @ManyToOne
+    @JoinColumn(name = "mentor_id")
+    private Mentor mentor;
+
 
 }
