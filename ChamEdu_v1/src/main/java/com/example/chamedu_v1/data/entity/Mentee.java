@@ -19,7 +19,7 @@ import java.util.List;
 public class Mentee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "menteeId")
+    @Column(name = "mentee_id")
     private int menteeId;
 
 
@@ -43,6 +43,10 @@ public class Mentee {
 
     @Column
     private String wishUniv;
+
+
+    @OneToMany(mappedBy = "mentee",cascade = CascadeType.REMOVE)
+    private List<Payment> paymentList = new ArrayList<>();
 
 
 }
