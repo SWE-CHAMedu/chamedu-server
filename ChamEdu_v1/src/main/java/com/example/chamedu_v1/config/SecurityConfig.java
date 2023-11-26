@@ -1,4 +1,4 @@
-package com.example.chamedu_v1.config;
+/*package com.example.chamedu_v1.config;
 
 import com.example.chamedu_v1.config.jwt.JwtAccessDeniedHandler;
 import com.example.chamedu_v1.config.jwt.JwtAuthenticationEntryPoint;
@@ -66,4 +66,4 @@ public class SecurityConfig {
         return httpSecurity.build();
     }
 
-}
+}*/

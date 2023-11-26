@@ -1,9 +1,25 @@
-package com.example.chamedu_v1.config.jwt;
+/*package com.example.chamedu_v1.config.jwt;
 
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
-/* 추가된 라이브러리를 사용해서 JWT를 생성하고 검증하는 컴포넌트  */
+import java.security.Key;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;d
+import java.util.stream.Collectors;
+
+// 추가된 라이브러리를 사용해서 JWT를 생성하고 검증하는 컴포넌트
 @Component
 public class TokenProvider implements InitializingBean {
 
@@ -58,7 +74,7 @@ public class TokenProvider implements InitializingBean {
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        User principal = new User(claims.getSubject(), "", authorities);
+        SecurityProperties.User principal = new SecurityProperties.User(claims.getSubject(), "", authorities);
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
@@ -83,4 +99,4 @@ public class TokenProvider implements InitializingBean {
         }
         return false;
     }
-}
+}*/
