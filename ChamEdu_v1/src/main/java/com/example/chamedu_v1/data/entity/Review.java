@@ -26,6 +26,12 @@ public class Review {
     @Column(nullable = false)
     private int score;
 
+    @Column(nullable = false)
+    private String  title;
+
+    @Column(nullable = false)
+    private String content;
+
     @CreationTimestamp
     private Timestamp createdTime;
 
@@ -36,8 +42,10 @@ public class Review {
     @JoinColumn(name = "mentee_id")
     private Mentee mentee;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "mentor_id")
     private Mentor mentor;
+
+
 }
 
