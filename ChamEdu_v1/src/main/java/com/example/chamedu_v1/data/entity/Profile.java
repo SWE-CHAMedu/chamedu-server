@@ -18,6 +18,9 @@ public class Profile {
     private int profileId;
 
     @Column
+    private String university;
+
+    @Column
     private String major;
 
     @Column

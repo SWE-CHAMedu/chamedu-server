@@ -2,6 +2,10 @@ package com.example.chamedu_v1.data.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -37,6 +41,14 @@ public class Mentor {
 
     @Column
     private String userImg;
+
+    @Column
+    @ColumnDefault("0")
+    private int point;
+
+    @OneToMany(mappedBy = "mentor")
+    private List<Review> ReviewList = new ArrayList<Review>();
+
 
 
 }

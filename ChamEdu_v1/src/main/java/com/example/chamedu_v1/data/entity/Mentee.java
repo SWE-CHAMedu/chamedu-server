@@ -48,8 +48,8 @@ public class Mentee {
     private String wishUniv;
 
     @Column
-    private String userImg;
-
+    @ColumnDefault("0")
+    private int point;
 
     @OneToMany(mappedBy = "mentee",cascade = CascadeType.REMOVE)
     private List<Payment> paymentList = new ArrayList<>();
