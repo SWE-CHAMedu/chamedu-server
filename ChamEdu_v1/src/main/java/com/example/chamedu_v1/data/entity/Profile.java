@@ -21,13 +21,10 @@ public class Profile {
     private String university;
 
     @Column
-    private String major;
+    private int college;
 
     @Column
-    private String college;
-
-    @Column
-    private String admissionType;
+    private int admissionType;
 
     @Column
     private String promotionText;
