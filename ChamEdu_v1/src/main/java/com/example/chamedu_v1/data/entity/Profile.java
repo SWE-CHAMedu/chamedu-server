@@ -21,6 +21,9 @@ public class Profile {
     private String major;
 
     @Column
+    private String college;
+
+    @Column
     private String admissionType;
 
     @Column
@@ -28,6 +31,9 @@ public class Profile {
 
     @Column
     private int auth;
+
+    @Column
+    private float avgScore;
 
     @Column
     private String profileImg;

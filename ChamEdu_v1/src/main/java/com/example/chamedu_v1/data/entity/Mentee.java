@@ -36,7 +36,10 @@ public class Mentee {
     private String name;
 
     @Column
-    private String highshool;
+    private String wishAdmissionType;
+
+    @Column
+    private String wishCollege;
 
     @Column
     private String info;
