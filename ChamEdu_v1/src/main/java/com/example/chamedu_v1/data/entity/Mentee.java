@@ -47,6 +47,10 @@ public class Mentee {
     @Column
     private String wishUniv;
 
+    @Column
+    @ColumnDefault("0")
+    private int point;
+
     @OneToMany(mappedBy = "mentee",cascade = CascadeType.REMOVE)
     private List<Payment> paymentList = new ArrayList<>();
 
