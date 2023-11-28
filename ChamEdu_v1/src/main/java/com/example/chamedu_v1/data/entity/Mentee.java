@@ -36,7 +36,7 @@ public class Mentee {
     private String name;
 
     @Column
-    private String wishAdmissionType;
+    private int wishAdmissionType;
 
     @Column
     private String wishCollege;
@@ -46,6 +46,9 @@ public class Mentee {
 
     @Column
     private String wishUniv;
+
+    @Column
+    private String profileImg;
 
     @Column
     @ColumnDefault("0")
