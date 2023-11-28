@@ -33,6 +33,9 @@ public class Profile {
     private int auth;
 
     @Column
+    private float avgScore;
+
+    @Column
     private String profileImg;
 
     @OneToOne
