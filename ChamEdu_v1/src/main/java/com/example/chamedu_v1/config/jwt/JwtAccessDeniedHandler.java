@@ -1,4 +1,4 @@
-/*package com.example.chamedu_v1.config.jwt;
+package com.example.chamedu_v1.config.jwt;
 
 import io.jsonwebtoken.io.IOException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,4 +16,3 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
         response.sendError(HttpServletResponse.SC_FORBIDDEN);
     }
 }
-*/

@@ -1,4 +1,3 @@
-/*
 package com.example.chamedu_v1.config.jwt;
 import io.jsonwebtoken.io.IOException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,4 +17,3 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
     }
 }
-*/

@@ -1,4 +1,4 @@
-/*package com.example.chamedu_v1.config.jwt;
+package com.example.chamedu_v1.config.jwt;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
@@ -20,4 +20,4 @@ public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
                 UsernamePasswordAuthenticationFilter.class
         );
     }
-}*/
+}

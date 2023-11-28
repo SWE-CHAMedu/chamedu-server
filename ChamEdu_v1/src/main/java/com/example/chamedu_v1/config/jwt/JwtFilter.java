@@ -1,7 +1,7 @@
-/*package com.example.chamedu_v1.config.jwt;
+package com.example.chamedu_v1.config.jwt;
 
  //실제로 이 컴포넌트를 이용하는 것은 인증 작업을 진행하는 Filter
-이 필터는 검증이 끝난 JWT로부터 유저정보를 받아와서 UsernamePasswordAuthenticationFilter 로 전달
+// 이 필터는 검증이 끝난 JWT로부터 유저정보를 받아와서 UsernamePasswordAuthenticationFilter 로 전달
 
 import io.jsonwebtoken.io.IOException;
 import jakarta.servlet.FilterChain;
@@ -27,7 +27,7 @@ public class JwtFilter extends GenericFilterBean {
     // 실제 필터릴 로직
     // 토큰의 인증정보를 SecurityContext에 저장하는 역할 수행
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException, java.io.IOException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         String jwt = resolveToken(httpServletRequest);
         String requestURI = httpServletRequest.getRequestURI();
@@ -53,4 +53,4 @@ public class JwtFilter extends GenericFilterBean {
 
         return null;
     }
-}*/
+}
