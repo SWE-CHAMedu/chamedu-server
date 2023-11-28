@@ -39,7 +39,4 @@ public class Mentor {
     private String userImg;
 
 
-
-
-
 }

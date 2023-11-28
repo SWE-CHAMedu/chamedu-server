@@ -1,21 +1,24 @@
 package com.example.chamedu_v1.data.dto;
 
 import com.example.chamedu_v1.data.entity.Mentor;
-import lombok.Getter;
+import com.example.chamedu_v1.data.entity.Profile;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Getter
-@NoArgsConstructor
-public class MentorProfileResponseDto {
-//    private String admissionType;
-//    private String nickname;
-//    private String university;
-//    private String promotionText;
-//    private float avgPoint;
-//
-//    public MentorProfileUpdateRequestDto(Mentor mentor){
-//        admissionType = mentor.
-//
-//    }
+import java.util.Date;
+import java.util.List;
 
+@Data
+public class MentorProfileResponseDto {
+    private String userImg;
+    private String admissionType;
+    private String nickname;
+    private String university;
+    private String major;
+    private String promotionText;
+    private String currentChatTime;
+    private int reviewCount;
+    private List<ReviewMyPageResponseDto> reviewList;
 }

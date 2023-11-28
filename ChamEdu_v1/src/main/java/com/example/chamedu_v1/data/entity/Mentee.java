@@ -44,6 +44,9 @@ public class Mentee {
     @Column
     private String wishUniv;
 
+    @Column
+    private String userImg;
+
 
     @OneToMany(mappedBy = "mentee",cascade = CascadeType.REMOVE)
     private List<Payment> paymentList = new ArrayList<>();
