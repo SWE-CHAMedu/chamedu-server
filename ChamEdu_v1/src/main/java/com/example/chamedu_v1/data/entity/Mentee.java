@@ -36,6 +36,9 @@ public class Mentee {
     private String name;
 
     @Column
+    private String wishAdmissionType;
+
+    @Column
     private String wishCollege;
 
     @Column
@@ -43,7 +46,6 @@ public class Mentee {
 
     @Column
     private String wishUniv;
-
 
     @OneToMany(mappedBy = "mentee",cascade = CascadeType.REMOVE)
     private List<Payment> paymentList = new ArrayList<>();
