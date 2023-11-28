@@ -21,6 +21,9 @@ public class Profile {
     private String major;
 
     @Column
+    private String college;
+
+    @Column
     private String admissionType;
 
     @Column
