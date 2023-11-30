@@ -18,16 +18,22 @@ public class Profile {
     private int profileId;
 
     @Column
-    private String major;
+    private String university;
 
     @Column
-    private String admissionType;
+    private int college;
+
+    @Column
+    private int admissionType;
 
     @Column
     private String promotionText;
 
     @Column
     private int auth;
+
+    @Column
+    private float avgScore;
 
     @Column
     private String profileImg;

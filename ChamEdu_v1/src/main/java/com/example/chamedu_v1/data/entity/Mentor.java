@@ -1,12 +1,15 @@
 package com.example.chamedu_v1.data.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -30,10 +33,6 @@ public class Mentor {
     @Column
     private String name;
 
-    @Email
-    @Column
-    private String email;
-
     @Column
     private String address;
 
@@ -42,5 +41,17 @@ public class Mentor {
 
     @Column
     private String userImg;
+
+    @Column
+    @ColumnDefault("0")
+    private int point;
+
+    @OneToMany(mappedBy = "mentor")
+    private List<Review> ReviewList = new ArrayList<Review>();
+
+
+
+
+
 
 }
