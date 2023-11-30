@@ -27,4 +27,8 @@ public class TimeTable {
     @Column
     private Date availableTime;
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/Semin

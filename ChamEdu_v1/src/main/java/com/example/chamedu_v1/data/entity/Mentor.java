@@ -2,10 +2,6 @@ package com.example.chamedu_v1.data.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -48,6 +44,15 @@ public class Mentor {
 
     @OneToMany(mappedBy = "mentor")
     private List<Review> ReviewList = new ArrayList<Review>();
+
+    @Builder // @Setter를 두지 않기 위한 어노테이션
+    public Mentor(String userId, String password) {
+        this.userId = userId;
+        this.password = password;
+    }
+
+    protected void Member() {} //기본 생성자는 protected 로 막는다.
+
 
 
 
