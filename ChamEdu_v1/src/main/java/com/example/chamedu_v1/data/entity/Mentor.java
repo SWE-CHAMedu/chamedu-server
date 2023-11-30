@@ -49,7 +49,13 @@ public class Mentor {
     @OneToMany(mappedBy = "mentor")
     private List<Review> ReviewList = new ArrayList<Review>();
 
+    @Builder // @Setter를 두지 않기 위한 어노테이션
+    public Mentor(String userId, String password) {
+        this.userId = userId;
+        this.password = password;
+    }
 
+    protected void Member() {} //기본 생성자는 protected 로 막는다.
 
 
 

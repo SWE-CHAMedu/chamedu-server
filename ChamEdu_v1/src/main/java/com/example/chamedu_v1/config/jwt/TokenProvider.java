@@ -1,4 +1,5 @@
 package com.example.chamedu_v1.config.jwt;
+import com.example.chamedu_v1.data.dto.TokenDto;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -20,9 +21,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
-// 추가된 라이브러리를 사용해서 JWT를 생성하고 검증하는 컴포넌트
+// JWT 토큰에 관련된 암호화, 복호화, 검증 로직은 다 이곳에서 이루어진다.
 @Component
-public class TokenProvider implements InitializingBean {
+public class TokenProvider implements InitializingBean{
 
     private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
     private static final String AUTHORITIES_KEY = "auth";
@@ -31,9 +32,13 @@ public class TokenProvider implements InitializingBean {
     private final long tokenValidityInMilliseconds;
     private Key key;
 
-    public TokenProvider(
-            @Value("${jwt.secret}") String secret,
-            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
+    private static final String BEARER_TYPE = "Bearer";
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 30 * 60 * 1000L;              // 30분
+    private static final long REFRESH_TOKEN_EXPIRE_TIME = 7 * 24 * 60 * 60 * 1000L;    // 7일
+
+
+    public TokenProvider( @Value("${jwt.secret}") String secret,
+                          @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
         this.secret = secret;
         this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
     }
@@ -112,4 +117,37 @@ public class TokenProvider implements InitializingBean {
         }
         return false;
     }
+
+    // 토큰 생성
+    public TokenDto generateTokenDto(Authentication authentication) {
+
+        String authorities = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+
+        long now = (new Date()).getTime();
+        // Access Token 생성
+        Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
+
+        String accessToken = Jwts.builder()
+                .setSubject(authentication.getName())
+                .claim(AUTHORITIES_KEY, authorities)
+                .setExpiration(accessTokenExpiresIn)
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+
+        // Refresh Token 생성
+        String refreshToken = Jwts.builder()
+                .setExpiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+
+        return TokenDto.builder()
+                .grantType(BEARER_TYPE)
+                .accessToken(accessToken)
+                .accessTokenExpiresIn(accessTokenExpiresIn.getTime())
+                .refreshToken(refreshToken)
+                .build();
+    }
+
 }
