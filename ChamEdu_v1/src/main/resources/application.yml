@@ -21,12 +21,10 @@ spring:
         format_sql: true
 
 
-
-
 logging:
   level:
     com.example: debug
 jwt:
-  secret: c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK
+  secret: chamedu.is.the.best.educationapp
 # VlwEyVBsYt9V7zq57TejMnVUyzblYcffUjXn2opi2990s90sd0sdk283l5u8x
 

@@ -1,74 +1,44 @@
 package com.example.chamedu_v1.service;
-//멘토의 회원가입과 로그인에 필요한 로직을 구현
-import com.example.chamedu_v1.config.SecurityUtil;
+
 import com.example.chamedu_v1.config.jwt.TokenProvider;
-import com.example.chamedu_v1.data.dto.MentorRequestDto;
-import com.example.chamedu_v1.data.dto.MentorResponseDto;
-import com.example.chamedu_v1.data.dto.MentorSignUpDto;
-import com.example.chamedu_v1.data.dto.TokenDto;
 import com.example.chamedu_v1.data.entity.Mentor;
-import com.example.chamedu_v1.data.repository.MentorRepositoryImpl;
-import lombok.AllArgsConstructor;
+import com.example.chamedu_v1.data.repository.MentorRepository;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
 
-
+//멘토의 회원가입과 로그인에 필요한 로직을 구현
 @Service
+@RequiredArgsConstructor
 public class MentorService {
-    private final MentorRepositoryImpl mentorRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final AuthenticationManagerBuilder managerBuilder;
-    private final TokenProvider tokenProvider;
-//    Logger logger = LoggerFactory.getLogger(MentorService.class);
 
-    public MentorService(MentorRepositoryImpl mentorRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
-                         AuthenticationManagerBuilder managerBuilder , TokenProvider tokenProvider) {
-        this.mentorRepository = mentorRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.managerBuilder  = managerBuilder;
-        this.tokenProvider = tokenProvider;
+    private final MentorRepository mentorRepository;
+
+    @Value("${jwt.secret}")
+    private String secretKey;
+
+    private Long expiredMs = 1000 * 60 * 60L;
+    public String login(String userId, String password) {
+        // 인증과정 생략
+
+        return TokenProvider.createJwt(userId, secretKey, expiredMs);
     }
 
-    @Transactional
-    public MentorResponseDto getMyInfoBySecurity() {
-        return new MentorResponseDto((Mentor) mentorRepository.findByUserId(SecurityUtil.getCurrentMember()));
+    public String join(String userId, String password){
+
+        // 로그인 ID 중복 check
+        mentorRepository.findByUserId(userId); // 리턴을 option<mentor>타입으로 바꾸고싶다
+
+        // 저장
+        Mentor mentor = Mentor.builder()
+                .userId(userId)
+                .password(password)
+                .build();
+        mentorRepository.save(mentor);
+
+
+        return "SUCCESS";
     }
 
-    @Transactional
-    public TokenDto login(MentorRequestDto mentorRequestDto) {
-
-        UsernamePasswordAuthenticationToken authenticationToken = mentorRequestDto.toAuthentication();
-        Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
-        return tokenProvider.generateTokenDto(authentication);
-    }
-
-
-    @Transactional
-    public void join(MentorSignUpDto mentorSignUpDto){
-        mentorRepository.saveMember(
-                mentorSignUpDto.toEntity(
-                        bCryptPasswordEncoder.encode(
-                                bCryptPasswordEncoder.encode(mentorSignUpDto.getPassword()))));
-    }
-
-
-    public List<Mentor> findMembers() {
-        return mentorRepository.findAll();
-    }
-
-    public Mentor findOne(Long memberId) {
-        return mentorRepository.findOne(memberId);
-    }
 }

@@ -1,52 +1,46 @@
 package com.example.chamedu_v1.controller;
 
-
-import com.example.chamedu_v1.data.dto.MentorSignUpDto;
-import com.example.chamedu_v1.data.entity.Mentor;
-import com.example.chamedu_v1.data.repository.MentorRepository;
+import com.example.chamedu_v1.data.dto.MentorJoinRequestDto;
 import com.example.chamedu_v1.service.MentorService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequiredArgsConstructor //이거쓸때는 반드시 final생성자.
+@RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class MentorController {
 
         private final MentorService mentorService;
 
-        //로그인 페이지로 이동
-        @GetMapping("/login") //화면매핑
-        public String signinForm() {
-            return "auth/login";
+        // 토큰 발급 방식 로그인
+        @GetMapping("/login")
+        public ResponseEntity<String> login() {
+            return ResponseEntity.ok().body(mentorService.login("",""));
         }
 
-        //회원가입 페이지로 이동
-        @GetMapping("/join/mentor")  //
-        public String signupForm() {
+        // 회원가입 페이지로 이동
+        @GetMapping("/join/mentor")
+        public String joinForm() {
             return "auth/join/mentor";
         }
 
-        //회원가입: 값을 저장하기 위해, 현재주소 그대로 매핑
+        // 회원가입
         @PostMapping("/join/mentor")
-        public ResponseEntity<Boolean> signUp(@RequestBody MentorSignUpDto mentorSignUpDto) {
-            mentorService.join(mentorSignUpDto);
-            return ResponseEntity.ok(true);
+        public ResponseEntity<String> join(@RequestBody MentorJoinRequestDto dto) {
+            return ResponseEntity.ok("회원가입에 성공했습니다.");
         }
 
+        // 로그아웃
         @GetMapping("/logout")
         public ResponseEntity<Boolean> logoutPage(HttpServletRequest request, HttpServletResponse response) {
             new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
             return ResponseEntity.ok(true);
         }
+
+        //
     }
