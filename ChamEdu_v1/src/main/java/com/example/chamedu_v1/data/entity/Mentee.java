@@ -39,7 +39,7 @@ public class Mentee {
     private int wishAdmissionType;
 
     @Column
-    private String wishCollege;
+    private int wishCollege;
 
     @Column
     private String info;
@@ -48,11 +48,11 @@ public class Mentee {
     private String wishUniv;
 
     @Column
-    private String profileImg;
-
-    @Column
     @ColumnDefault("0")
     private int point;
+
+    @Column
+    private String profileImg;
 
     @OneToMany(mappedBy = "mentee",cascade = CascadeType.REMOVE)
     private List<Payment> paymentList = new ArrayList<>();

@@ -16,4 +16,5 @@ public interface ProfileRepository extends JpaRepository<Profile,Integer> {
     @Query("SELECT Room FROM Room room WHERE room.mentor.mentorId =: mentorId order by room.startDate ASC")
     Room findByStartDate(@Param("mentorId") int mentorId);
 
+
 }

@@ -1,6 +1,8 @@
 package com.example.chamedu_v1.service;
 
+import com.example.chamedu_v1.data.dto.ChatHistoryResponseDto;
 import com.example.chamedu_v1.data.dto.MentorProfileResponseDto;
+import com.example.chamedu_v1.data.dto.MentorProfileUpdateRequestDto;
 import com.example.chamedu_v1.data.dto.ReviewMyPageResponseDto;
 import com.example.chamedu_v1.data.entity.Mentor;
 import com.example.chamedu_v1.data.entity.Profile;
@@ -9,17 +11,16 @@ import com.example.chamedu_v1.data.entity.Room;
 import com.example.chamedu_v1.data.repository.MentorRepository;
 import com.example.chamedu_v1.data.repository.ProfileRepository;
 import com.example.chamedu_v1.data.repository.ReviewRepository;
+import com.example.chamedu_v1.data.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Time;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,13 +36,10 @@ public class MentorMyPageService {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @Autowired
+    private RoomRepository roomRepository;
 
 
-//    public MentorMyPageService(MentorRepository mentorRepository, ProfileRepository profileRepository, ReviewRepository reviewRepository){
-//        this.mentorRepository = mentorRepository;
-//        this.profileRepository = profileRepository;
-//        this.reviewRepository = reviewRepository;
-//    }
 
     @Transactional(readOnly = true)
     public int findMentorIdByUserId(String userId){
@@ -80,10 +78,9 @@ public class MentorMyPageService {
             myPageDto.setCurrentChatTime("상담 예정 시간이 없습니다.");
         }
 
-        myPageDto.setUserImg(mentorInfo.getUserImg());
+        myPageDto.setUserImg(profileInfo.getProfileImg());
         myPageDto.setNickname(mentorInfo.getNickname());
         myPageDto.setAdmissionType(profileInfo.getAdmissionType());
-        myPageDto.setMajor(profileInfo.getMajor());
         myPageDto.setUniversity(mentorInfo.getUniversity());
         myPageDto.setPromotionText(profileInfo.getPromotionText());
         myPageDto.setReviewCount(reviewCount);
@@ -107,5 +104,33 @@ public class MentorMyPageService {
 
         return myPageDto;
     }
+
+
+
+
+    public Profile updateMentorProfile(int mentorId, MentorProfileUpdateRequestDto updateDto){
+        Profile profileInfo = profileRepository.findByMentor(mentorId);
+        Mentor mentorInfo = mentorRepository.findByMentorId(mentorId);
+
+
+
+        mentorInfo.setNickname(updateDto.getNickName());
+        profileInfo.setProfileImg(updateDto.getUserImg());
+        profileInfo.setUniversity(updateDto.getUniversity());
+        profileInfo.setCollege(updateDto.getCollege());
+        profileInfo.setAdmissionType(profileInfo.getAdmissionType());
+        profileInfo.setPromotionText(profileInfo.getPromotionText());
+        //가능시간 추가
+
+        List<Time> convertedAvailableTime = updateDto.convertToTimeList();
+        mentorInfo.setAvailableTime(convertedAvailableTime);
+
+
+        profileRepository.save(profileInfo);
+        mentorRepository.save(mentorInfo);
+        
+        return profileInfo;
+    }
+
 
 }

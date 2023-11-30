@@ -2,6 +2,11 @@ package com.example.chamedu_v1.data.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -41,6 +46,9 @@ public class Mentor {
     @Column
     @ColumnDefault("0")
     private int point;
+
+    @ElementCollection
+    private List<Time> availableTime;
 
     @OneToMany(mappedBy = "mentor")
     private List<Review> ReviewList = new ArrayList<Review>();

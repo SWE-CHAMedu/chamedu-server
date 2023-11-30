@@ -1,6 +1,7 @@
 package com.example.chamedu_v1.service;
 
 import com.example.chamedu_v1.data.dto.MenteeProfileResponseDto;
+import com.example.chamedu_v1.data.dto.MenteeProfileUpdateDto;
 import com.example.chamedu_v1.data.dto.ReviewMyPageResponseDto;
 import com.example.chamedu_v1.data.dto.RoomMyPageResponseDto;
 import com.example.chamedu_v1.data.entity.Mentee;
@@ -66,9 +67,9 @@ public class MenteeMyPageService {
             myPageDto.setCurrentChatTime("상담 예정 시간이 없습니다.");
         }
 
-        myPageDto.setUserImg(menteeInfo.getUserImg());
+        myPageDto.setUserImg(menteeInfo.getProfileImg());
         myPageDto.setNickname(menteeInfo.getNickname());
-        myPageDto.setHighSchool(menteeInfo.getHighshool());
+        myPageDto.setWishCollege(menteeInfo.getWishCollege());
         myPageDto.setPromotionText(menteeInfo.getInfo());
         myPageDto.setPromotionText(menteeInfo.getInfo());
         myPageDto.setEndChatCount(chatCount);
@@ -96,5 +97,21 @@ public class MenteeMyPageService {
         return myPageDto;
 
 
+    }
+
+
+    public Mentee updateMenteeProfile(int menteeId, MenteeProfileUpdateDto profileUpdateDto){
+        Mentee menteeInfo = menteeRepository.findByMenteeId(menteeId);
+
+        menteeInfo.setNickname(profileUpdateDto.getNickName());
+        menteeInfo.setInfo(profileUpdateDto.getInfo());
+        menteeInfo.setWishUniv(profileUpdateDto.getWishUniv());
+        menteeInfo.setWishCollege(profileUpdateDto.getWishCollege());
+        menteeInfo.setWishAdmissionType(profileUpdateDto.getWishAdmissionType());
+        menteeInfo.setProfileImg(profileUpdateDto.getUserImg());
+
+        menteeRepository.save(menteeInfo);
+
+        return menteeInfo;
     }
 }

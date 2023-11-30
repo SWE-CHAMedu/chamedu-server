@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 public class MentorProfileResponseDto {
     private String userImg;
-    private String admissionType;
+    private int admissionType;
     private String nickname;
     private String university;
     private String major;

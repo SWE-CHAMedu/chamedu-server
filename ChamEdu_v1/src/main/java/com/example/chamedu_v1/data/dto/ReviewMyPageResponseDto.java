@@ -9,7 +9,7 @@ public class ReviewMyPageResponseDto {
 
     private String title;
 
-    private float point;
+    private int point;
 
     private String content;
 }

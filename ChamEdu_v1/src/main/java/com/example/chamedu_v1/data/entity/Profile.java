@@ -3,6 +3,9 @@ package com.example.chamedu_v1.data.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Time;
+import java.util.List;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,6 +40,7 @@ public class Profile {
 
     @Column
     private String profileImg;
+
 
     @OneToOne
     @JoinColumn(name ="mentorId")

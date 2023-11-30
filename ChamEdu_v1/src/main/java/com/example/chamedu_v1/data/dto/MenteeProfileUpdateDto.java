@@ -7,6 +7,9 @@ import java.util.List;
 @Data
 public class MenteeProfileUpdateDto {
     private String nickName;
-    private String promotionText;
+    private String info;
+    private String wishUniv;
+    private int wishCollege;
+    private int wishAdmissionType;
     private String userImg;
 }

@@ -7,7 +7,7 @@ import com.example.chamedu_v1.data.dto.MentorResponseDto;
 import com.example.chamedu_v1.data.dto.MentorSignUpDto;
 import com.example.chamedu_v1.data.dto.TokenDto;
 import com.example.chamedu_v1.data.entity.Mentor;
-import com.example.chamedu_v1.data.repository.MentorRepository;
+import com.example.chamedu_v1.data.repository.MentorRepositoryImpl;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -27,13 +27,13 @@ import java.util.List;
 
 @Service
 public class MentorService {
-    private final MentorRepository mentorRepository;
+    private final MentorRepositoryImpl mentorRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AuthenticationManagerBuilder managerBuilder;
     private final TokenProvider tokenProvider;
 //    Logger logger = LoggerFactory.getLogger(MentorService.class);
 
-    public MentorService(MentorRepository mentorRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
+    public MentorService(MentorRepositoryImpl mentorRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
                          AuthenticationManagerBuilder managerBuilder , TokenProvider tokenProvider) {
         this.mentorRepository = mentorRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -41,15 +41,6 @@ public class MentorService {
         this.tokenProvider = tokenProvider;
     }
 
-//    @Transactional
-//    public Mentor join(Mentor mentor) {
-//        String rawPassword = mentor.getPassword();
-//        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
-//        mentor.setPassword(encPassword);
-//        Mentor mentorEntity = mentorRepository.save(mentor);
-//
-//        return mentorEntity;
-//    }
     @Transactional
     public MentorResponseDto getMyInfoBySecurity() {
         return new MentorResponseDto((Mentor) mentorRepository.findByUserId(SecurityUtil.getCurrentMember()));
@@ -73,17 +64,6 @@ public class MentorService {
     }
 
 
-//    private void validateDuplicateMember(Mentor member) {
-//        List<Mentor> findMembers = mentorRepository.findByUserId(member.getName());
-//        if(!findMembers.isEmpty()){
-//            throw new IllegalStateException("이미 존재하는 이름입니다.");
-//        }
-//    }
-//
-//    @Transactional
-//    public boolean checkDuplicateId(String userId) {
-//        //return mentorRepository.existsByUsername(userId);
-//    }
     public List<Mentor> findMembers() {
         return mentorRepository.findAll();
     }

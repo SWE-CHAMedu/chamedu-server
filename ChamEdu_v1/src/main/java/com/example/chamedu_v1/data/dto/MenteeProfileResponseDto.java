@@ -9,7 +9,7 @@ public class MenteeProfileResponseDto {
 
     private String userImg;
     private String nickname;
-    private String highSchool;
+    private int wishCollege;
     private String promotionText;
     private int endChatCount;
     private int reviewCount;
