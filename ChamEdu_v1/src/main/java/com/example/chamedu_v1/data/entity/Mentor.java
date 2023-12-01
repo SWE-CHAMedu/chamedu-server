@@ -48,7 +48,7 @@ public class Mentor {
     private int point;
 
     @ElementCollection
-    private List<Time> availableTime;
+    private List<Time> availableTime;   //멘토 상담가능시간 추가
 
     @OneToMany(mappedBy = "mentor")
     private List<Review> ReviewList = new ArrayList<Review>();
@@ -60,8 +60,6 @@ public class Mentor {
     }
 
     protected void Member() {} //기본 생성자는 protected 로 막는다.
-
-
 
 
 }
