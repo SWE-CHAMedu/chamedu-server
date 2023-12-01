@@ -8,6 +8,7 @@ import com.example.chamedu_v1.data.entity.Mentee;
 import com.example.chamedu_v1.data.entity.Review;
 import com.example.chamedu_v1.data.entity.Room;
 import com.example.chamedu_v1.data.repository.MenteeRepository;
+import com.example.chamedu_v1.data.repository.ReviewRepository;
 import com.example.chamedu_v1.data.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,23 +30,16 @@ public class MenteeMyPageService {
     @Autowired
     private RoomRepository roomRepository;
 
-    public int findMenteeIdByUserId(String userId){
-        Mentee mentee = menteeRepository.findByUserId(userId);
-        if (mentee != null) {
-            return mentee.getMenteeId();
-        }
-        return 0; // 해당 전화번호로 유저를 찾지 못한 경우
-
-
-    }
+    @Autowired
+    private ReviewRepository reviewRepository;
 
 
     public MenteeProfileResponseDto getUserInfo(String userId){
 
         Mentee menteeInfo = menteeRepository.findByUserId(userId);
-        Room sceduledroom = menteeRepository.findRoomStarDateByUserId(userId);
-        int chatCount = menteeRepository.findRoomCountByUserId(userId);
-        int reviewCount = menteeRepository.findReviewCountByUserId(userId);
+        Room sceduledroom = roomRepository.findByMentee_UserIdOrderByStartDateAsc(userId);
+        int chatCount = roomRepository.countByMentee_UserId(userId);
+        int reviewCount = reviewRepository.countByMentee_UserId(userId);
 
         MenteeProfileResponseDto myPageDto = new MenteeProfileResponseDto();
 
@@ -75,7 +69,7 @@ public class MenteeMyPageService {
         myPageDto.setEndChatCount(chatCount);
         myPageDto.setReviewCount(reviewCount);
 
-        List<Room> roomList = roomRepository.findAllByMenteeUserId(userId);
+        List<Room> roomList = roomRepository.findAllByMentee_UserId(userId);
 
         List<RoomMyPageResponseDto> roomDtoList = roomList.stream()
                 .map(room -> {

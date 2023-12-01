@@ -1,5 +1,6 @@
 package com.example.chamedu_v1.data.repository;
 import com.example.chamedu_v1.data.entity.Mentor;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,10 +11,10 @@ public interface MentorRepository extends JpaRepository<Mentor,Long> {
 
     Mentor findByUserId(String userId);
     Mentor findByMentorId(int mentorId);
+    @Transactional
     Mentor save(Mentor mentor);
 
-    @Query("SELECT count(Review) FROM Review review WHERE review.mentor.userId =: userId")
-    int findReviewCountByMentorId(@Param("userId") String userId);
+
 
 
 }

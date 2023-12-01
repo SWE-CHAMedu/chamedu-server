@@ -41,22 +41,11 @@ public class MentorMyPageService {
 
 
 
-    @Transactional(readOnly = true)
-    public int findMentorIdByUserId(String userId){
-        Mentor mentor = mentorRepository.findByUserId(userId);
-        if (mentor != null) {
-            return mentor.getMentorId();
-        }
-        return 0; // 해당 전화번호로 유저를 찾지 못한 경우
-
-
-    }
-
     public MentorProfileResponseDto getUserInfo(String userId) {
         Mentor mentorInfo = mentorRepository.findByUserId(userId);
-        Profile profileInfo = profileRepository.findByMentor(userId);
-        Room room = profileRepository.findByStartDate(userId);
-        int reviewCount = mentorRepository.findReviewCountByMentorId(userId);
+        Profile profileInfo = profileRepository.findByMentor_UserId(userId);
+        Room room = roomRepository.findByMentor_UserIdOrderByStartDateAsc(userId);
+        int reviewCount = reviewRepository.countByMentor_UserId(userId);
 
         MentorProfileResponseDto myPageDto = new MentorProfileResponseDto();
 
@@ -85,7 +74,7 @@ public class MentorMyPageService {
         myPageDto.setPromotionText(profileInfo.getPromotionText());
         myPageDto.setReviewCount(reviewCount);
 
-        List<Review> reviewList = reviewRepository.findAllByMentor(userId);
+        List<Review> reviewList = reviewRepository.findAllByMentor_UserId(userId);
 
         List<ReviewMyPageResponseDto> reviewDtoList = reviewList.stream()
                 .map(review -> {
@@ -109,7 +98,7 @@ public class MentorMyPageService {
 
 
     public Profile updateMentorProfile(String userId, MentorProfileUpdateRequestDto updateDto){
-        Profile profileInfo = profileRepository.findByMentor(userId);
+        Profile profileInfo = profileRepository.findByMentor_UserId(userId);
         Mentor mentorInfo = mentorRepository.findByUserId(userId);
 
 

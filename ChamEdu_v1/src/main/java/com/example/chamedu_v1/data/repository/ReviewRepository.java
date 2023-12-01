@@ -11,8 +11,11 @@ import java.util.List;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
-    @Query("SELECT Review From Review review WHERE review.mentor.userId=:userId")
-    List<Review> findAllByMentor(@Param("userId") String userId);
 
+    List<Review> findAllByMentor_UserId(String userId);
+
+    int countByMentor_UserId(String userId);
+
+    int countByMentee_UserId(String userId);
 
 }

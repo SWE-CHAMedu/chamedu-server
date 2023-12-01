@@ -31,9 +31,9 @@ public class MenteeMyPageController {
 
         HttpSession session = request.getSession();
 
-        String user_id = (String)session.getAttribute("user_id");
+        String userId = (String)session.getAttribute("userId");
 
-        MenteeProfileResponseDto dto = menteeMyPageService.getUserInfo(user_id);
+        MenteeProfileResponseDto dto = menteeMyPageService.getUserInfo(userId);
 
         return ResponseEntity.ok(dto);
 
@@ -44,7 +44,7 @@ public class MenteeMyPageController {
 
         HttpSession session = request.getSession();
 
-        String userId = (String)session.getAttribute("user_id");
+        String userId = (String)session.getAttribute("userId");
 
         Mentee menteeInfo = menteeMyPageService.updateMenteeProfile(userId,profileUpdateDto);
 

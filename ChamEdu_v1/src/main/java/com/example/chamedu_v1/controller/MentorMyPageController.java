@@ -30,7 +30,7 @@ public class MentorMyPageController {
 
         HttpSession session = request.getSession();
 
-        String userId = (String)session.getAttribute("user_id");
+        String userId = (String)session.getAttribute("userId");
 
         MentorProfileResponseDto dto = mentorMyPageService.getUserInfo(userId);
 
@@ -43,7 +43,7 @@ public class MentorMyPageController {
 
         HttpSession session = request.getSession();
 
-        String userId = (String)session.getAttribute("user_id");
+        String userId = (String)session.getAttribute("userId");
 
         Profile mentorInfo = mentorMyPageService.updateMentorProfile(userId, updateRequestDto);
 
