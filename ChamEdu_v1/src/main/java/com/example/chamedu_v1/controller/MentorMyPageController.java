@@ -1,6 +1,5 @@
 package com.example.chamedu_v1.controller;
 
-import com.example.chamedu_v1.common.FindUserInfo;
 import com.example.chamedu_v1.data.dto.MentorProfileResponseDto;
 import com.example.chamedu_v1.data.dto.MentorProfileUpdateRequestDto;
 import com.example.chamedu_v1.data.entity.Mentee;
@@ -24,7 +23,6 @@ public class MentorMyPageController {
     @Autowired
     public MentorMyPageController(MentorMyPageService mentorMyPageService){
         this.mentorMyPageService = mentorMyPageService;
-        FindUserInfo.mentorMyPageService = mentorMyPageService;
     }
 
     @GetMapping("/mentor-mypage")

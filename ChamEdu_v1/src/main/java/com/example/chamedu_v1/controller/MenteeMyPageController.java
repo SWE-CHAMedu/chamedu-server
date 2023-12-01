@@ -1,6 +1,5 @@
 package com.example.chamedu_v1.controller;
 
-import com.example.chamedu_v1.common.FindUserInfo;
 import com.example.chamedu_v1.data.dto.MenteeProfileResponseDto;
 import com.example.chamedu_v1.data.dto.MenteeProfileUpdateDto;
 import com.example.chamedu_v1.data.dto.MentorProfileResponseDto;
@@ -25,7 +24,6 @@ public class MenteeMyPageController {
 
     public MenteeMyPageController(MenteeMyPageService menteeMyPageService){
         this.menteeMyPageService = menteeMyPageService;
-        FindUserInfo.menteeMyPageService = menteeMyPageService;
     }
 
     @GetMapping("/mentee-mypage")

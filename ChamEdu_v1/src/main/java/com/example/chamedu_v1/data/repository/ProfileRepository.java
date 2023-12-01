@@ -8,7 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProfileRepository extends JpaRepository<Profile,Integer> {
+public interface
+ProfileRepository extends JpaRepository<Profile,Integer> {
 
     @Query("SELECT Profile FROM Profile profile WHERE profile.mentor.userId =: userId ")
     Profile findByMentor(@Param("userId") String userId);
