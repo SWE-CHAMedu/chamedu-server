@@ -7,7 +7,10 @@ import com.example.chamedu_v1.data.dto.MentorProfileResponseDto;
 import com.example.chamedu_v1.data.entity.Mentee;
 import com.example.chamedu_v1.data.entity.Mentor;
 import com.example.chamedu_v1.service.MenteeMyPageService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,22 +29,26 @@ public class MenteeMyPageController {
     }
 
     @GetMapping("/mentee-mypage")
-    public ResponseEntity<MenteeProfileResponseDto> getMenteeMyPage(){
+    public ResponseEntity<MenteeProfileResponseDto> getMenteeMyPage(HttpServletRequest request){
 
-        int menteeId = FindUserInfo.getCurrentMenteeUserId();
+        HttpSession session = request.getSession();
 
-        MenteeProfileResponseDto dto = menteeMyPageService.getUserInfo(menteeId);
+        String user_id = (String)session.getAttribute("user_id");
+
+        MenteeProfileResponseDto dto = menteeMyPageService.getUserInfo(user_id);
 
         return ResponseEntity.ok(dto);
 
     }
 
     @PutMapping("/mentee-mypage/profile/update")
-    public ResponseEntity<String> updateMenteeProfile(@RequestBody MenteeProfileUpdateDto profileUpdateDto){
+    public ResponseEntity<String> updateMenteeProfile(HttpServletRequest request,@RequestBody MenteeProfileUpdateDto profileUpdateDto){
 
-        int menteeId = FindUserInfo.getCurrentMenteeUserId();
+        HttpSession session = request.getSession();
 
-        Mentee menteeInfo = menteeMyPageService.updateMenteeProfile(menteeId,profileUpdateDto);
+        String userId = (String)session.getAttribute("user_id");
+
+        Mentee menteeInfo = menteeMyPageService.updateMenteeProfile(userId,profileUpdateDto);
 
         if(menteeInfo!=null){
             return ResponseEntity.ok("회원 정보 수정에 성공하셨습니다!");

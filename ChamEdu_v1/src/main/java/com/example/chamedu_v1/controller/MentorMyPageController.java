@@ -7,6 +7,8 @@ import com.example.chamedu_v1.data.entity.Mentee;
 import com.example.chamedu_v1.data.entity.Mentor;
 import com.example.chamedu_v1.data.entity.Profile;
 import com.example.chamedu_v1.service.MentorMyPageService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,21 +28,26 @@ public class MentorMyPageController {
     }
 
     @GetMapping("/mentor-mypage")
-    public ResponseEntity<MentorProfileResponseDto> getMentorMyPage(){
+    public ResponseEntity<MentorProfileResponseDto> getMentorMyPage(HttpServletRequest request){
 
-        int mentorId = FindUserInfo.getCurrentMentorUserId();
+        HttpSession session = request.getSession();
 
-        MentorProfileResponseDto dto = mentorMyPageService.getUserInfo(mentorId);
+        String userId = (String)session.getAttribute("user_id");
+
+        MentorProfileResponseDto dto = mentorMyPageService.getUserInfo(userId);
 
         return ResponseEntity.ok(dto);
 
     }
 
     @PutMapping("/mentor-mypage/profile/update")
-    public ResponseEntity<String> updateMentorProfile(@RequestBody MentorProfileUpdateRequestDto updateRequestDto){
-        int mentorId = FindUserInfo.getCurrentMentorUserId();
+    public ResponseEntity<String> updateMentorProfile(HttpServletRequest request, @RequestBody MentorProfileUpdateRequestDto updateRequestDto){
 
-        Profile mentorInfo = mentorMyPageService.updateMentorProfile(mentorId, updateRequestDto);
+        HttpSession session = request.getSession();
+
+        String userId = (String)session.getAttribute("user_id");
+
+        Profile mentorInfo = mentorMyPageService.updateMentorProfile(userId, updateRequestDto);
 
         if(mentorInfo!=null){
             return ResponseEntity.ok("회원 정보 수정에 성공하였습니다.");

@@ -40,12 +40,12 @@ public class MenteeMyPageService {
     }
 
 
-    public MenteeProfileResponseDto getUserInfo(int menteeId){
+    public MenteeProfileResponseDto getUserInfo(String userId){
 
-        Mentee menteeInfo = menteeRepository.findByMenteeId(menteeId);
-        Room sceduledroom = menteeRepository.findRoomStarDateByMenteeId(menteeId);
-        int chatCount = menteeRepository.findRoomCountByMenteeId(menteeId);
-        int reviewCount = menteeRepository.findReviewCountByMenteeId(menteeId);
+        Mentee menteeInfo = menteeRepository.findByUserId(userId);
+        Room sceduledroom = menteeRepository.findRoomStarDateByUserId(userId);
+        int chatCount = menteeRepository.findRoomCountByUserId(userId);
+        int reviewCount = menteeRepository.findReviewCountByUserId(userId);
 
         MenteeProfileResponseDto myPageDto = new MenteeProfileResponseDto();
 
@@ -75,7 +75,7 @@ public class MenteeMyPageService {
         myPageDto.setEndChatCount(chatCount);
         myPageDto.setReviewCount(reviewCount);
 
-        List<Room> roomList = roomRepository.findAllByMenteeId(menteeId);
+        List<Room> roomList = roomRepository.findAllByMenteeUserId(userId);
 
         List<RoomMyPageResponseDto> roomDtoList = roomList.stream()
                 .map(room -> {
@@ -100,8 +100,8 @@ public class MenteeMyPageService {
     }
 
 
-    public Mentee updateMenteeProfile(int menteeId, MenteeProfileUpdateDto profileUpdateDto){
-        Mentee menteeInfo = menteeRepository.findByMenteeId(menteeId);
+    public Mentee updateMenteeProfile(String userId, MenteeProfileUpdateDto profileUpdateDto){
+        Mentee menteeInfo = menteeRepository.findByUserId(userId);
 
         menteeInfo.setNickname(profileUpdateDto.getNickName());
         menteeInfo.setInfo(profileUpdateDto.getInfo());

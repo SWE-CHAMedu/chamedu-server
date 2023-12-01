@@ -13,13 +13,13 @@ public interface MenteeRepository extends JpaRepository<Mentee,Integer> {
 
     Mentee findByMenteeId(int menteeId);
 
-    @Query("SELECT Room FROM Room room WHERE room.mentee.menteeId =: menteeId order by room.startDate ASC")
-    Room findRoomStarDateByMenteeId(@Param("menteeId") int menteeId);
+    @Query("SELECT Room FROM Room room WHERE room.mentee.userId =: userId order by room.startDate ASC")
+    Room findRoomStarDateByUserId(@Param("userId") String userId);
 
-    @Query("SELECT count(room) FROM Room room WHERE room.startDate < CURRENT_DATE AND room.mentee.menteeId = :menteeId")
-    int findRoomCountByMenteeId(@Param("menteeId") int menteeId);
+    @Query("SELECT count(room) FROM Room room WHERE room.startDate < CURRENT_DATE AND room.mentee.userId = :userId")
+    int findRoomCountByUserId(@Param("userId") String userId);
 
-    @Query("SELECT count(Review) FROM Review review WHERE review.mentee.menteeId =: menteeId")
-    int findReviewCountByMenteeId(@Param("menteeId") int menteeId);
+    @Query("SELECT count(Review) FROM Review review WHERE review.mentee.userId =: userId")
+    int findReviewCountByUserId(@Param("userId") String userId);
 
 }

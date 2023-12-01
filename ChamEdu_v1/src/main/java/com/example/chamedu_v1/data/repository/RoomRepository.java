@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface RoomRepository extends JpaRepository<Room,Integer> {
 
-    @Query("SELECT Room FROM Room room WHERE room.mentee.menteeId =: menteeId")
-    List<Room> findAllByMenteeId(@Param("menteeId") int menteeId);
+    @Query("SELECT Room FROM Room room WHERE room.mentee.userId =: userId")
+    List<Room> findAllByMenteeUserId(@Param("userId") String userId);
 
 
-    @Query("SELECT Room FROM Room room WHERE room.mentor.mentorId =: mentorId")
-    List<Room> findAllByMentor(@Param("mentorId") int mentorId);
+    @Query("SELECT Room FROM Room room WHERE room.mentor.userId =: userId")
+    List<Room> findAllByMentorUserId(@Param("mentorId") String userId);
 
 }
