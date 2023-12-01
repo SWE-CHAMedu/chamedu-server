@@ -5,11 +5,11 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class MentorJoinRequestDto {
+public class MenteeJoinRequestDto {
+    private String name;
+    private String nickname;
     private String userId;
     private String password;
-    private String nickname;
-    private String name;
-    private String university;
-    private String userImg;
+    private String profileImg;
+
 }

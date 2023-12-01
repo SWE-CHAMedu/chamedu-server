@@ -9,11 +9,11 @@ import org.springframework.stereotype.Repository;
 public interface MentorRepository extends JpaRepository<Mentor,Long> {
 
     Mentor findByUserId(String userId);
-
     Mentor findByMentorId(int mentorId);
+    Mentor save(Mentor mentor);
 
     @Query("SELECT count(Review) FROM Review review WHERE review.mentor.userId =: userId")
     int findReviewCountByMentorId(@Param("userId") String userId);
 
-    Mentor save(Mentor mentor);
+
 }

@@ -31,11 +31,8 @@ public class Mentor {
     @Column(nullable = false)
     private String nickname;
 
-    @Column
+    @Column(nullable = false)
     private String name;
-
-    @Column
-    private String address;
 
     @Column
     private String university;

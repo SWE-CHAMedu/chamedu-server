@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class MentorJoinServiceImpl implements MentorJoinService {
+public class MentorAccessServiceImpl implements MentorAccessService {
 
     private final MentorRepository mentorRepository;
 
     @Autowired
-    public MentorJoinServiceImpl(MentorRepository mentorRepository) {
+    public MentorAccessServiceImpl(MentorRepository mentorRepository) {
         this.mentorRepository = mentorRepository;
     }
 
@@ -24,12 +24,15 @@ public class MentorJoinServiceImpl implements MentorJoinService {
         mentor.setUserId(mentorJoinRequestDto.getUserId());
         mentor.setPassword(mentorJoinRequestDto.getPassword());
         mentor.setNickname(mentorJoinRequestDto.getNickname());
+        mentor.setName(mentorJoinRequestDto.getName());
+        mentor.setUniversity(mentorJoinRequestDto.getUniversity());
+        mentor.setUserImg(mentorJoinRequestDto.getUserImg());
         mentorRepository.save(mentor);
     }
 
     @Override
     public boolean authenticateUser(Mentor mentor) {
-        Mentor storedMentor=mentorRepository.findByUserId(mentor.getUserId());
+        Mentor storedMentor = mentorRepository.findByUserId(mentor.getUserId());
         return storedMentor != null && storedMentor.getPassword().equals(mentor.getPassword());
     }
 }
