@@ -35,9 +35,6 @@ public class Mentor {
     private String name;
 
     @Column
-    private String university;
-
-    @Column
     private String userImg;
 
     @Column

@@ -10,6 +10,7 @@ public class MentorJoinRequestDto {
     private String password;
     private String nickname;
     private String name;
-    private String university;
     private String userImg;
+
+    private String university;
 }

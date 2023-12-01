@@ -81,7 +81,7 @@ public class MentorMyPageService {
         myPageDto.setUserImg(profileInfo.getProfileImg());
         myPageDto.setNickname(mentorInfo.getNickname());
         myPageDto.setAdmissionType(profileInfo.getAdmissionType());
-        myPageDto.setUniversity(mentorInfo.getUniversity());
+        myPageDto.setUniversity(profileInfo.getUniversity());
         myPageDto.setPromotionText(profileInfo.getPromotionText());
         myPageDto.setReviewCount(reviewCount);
 
