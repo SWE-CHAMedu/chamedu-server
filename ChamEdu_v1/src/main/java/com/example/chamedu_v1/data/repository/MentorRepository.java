@@ -15,5 +15,5 @@ public interface MentorRepository extends JpaRepository<Mentor,Long> {
     @Query("SELECT count(Review) FROM Review review WHERE review.mentor.userId =: userId")
     int findReviewCountByMentorId(@Param("userId") String userId);
 
-
+    Mentor save(Mentor mentor);
 }
