@@ -41,6 +41,10 @@ public class Mentor {
     @ColumnDefault("0")
     private int point;
 
+    @Column
+    @ColumnDefault("0")
+    private int chatCount;
+
     @ElementCollection
     private List<Time> availableTime;   //멘토 상담가능시간 추가
 

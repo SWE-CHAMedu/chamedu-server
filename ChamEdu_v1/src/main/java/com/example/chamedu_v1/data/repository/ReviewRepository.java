@@ -12,6 +12,7 @@ import java.util.List;
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
 
+    List<Review> findReviewsByMentorMentorId(int mentorId);
     List<Review> findAllByMentor_UserId(String userId);
 
     int countByMentor_UserId(String userId);

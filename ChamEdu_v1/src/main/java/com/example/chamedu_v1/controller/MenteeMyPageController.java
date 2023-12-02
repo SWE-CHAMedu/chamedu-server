@@ -43,7 +43,6 @@ public class MenteeMyPageController {
     public ResponseEntity<String> updateMenteeProfile(HttpServletRequest request,@RequestBody MenteeProfileUpdateDto profileUpdateDto){
 
         HttpSession session = request.getSession();
-
         String userId = (String)session.getAttribute("userId");
 
         Mentee menteeInfo = menteeMyPageService.updateMenteeProfile(userId,profileUpdateDto);
