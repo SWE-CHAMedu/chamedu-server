@@ -29,6 +29,9 @@ public class MentorProfileDetailController {
     @Autowired
     private MentorProfileListService mentorProfileListService;
 
+    /**
+     * 멘토 프로필 조회
+     */
     @GetMapping("/mentor-profile/{mentorId}")
     @ResponseBody
     public ResponseEntity<MentorProfileDetailDto> getMentor(@PathVariable int mentorId){
