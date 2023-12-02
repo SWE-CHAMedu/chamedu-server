@@ -19,6 +19,8 @@ public class UserController {
 
     private final MentorAccessService mentorAccessService;
     private final MenteeAccessService menteeAccessService;
+    public static final String USER_ID = "userId";
+    public static final String ROLE = "role";
 
     @Autowired
     public UserController(MentorAccessService mentorAccessService, MenteeAccessService menteeAccessService) {
@@ -50,8 +52,9 @@ public class UserController {
     @PostMapping("/login/mentor")
     public ResponseEntity<String> login(@RequestBody Mentor mentor, HttpSession session) {
         if (mentorAccessService.authenticateUser(mentor)) {
-            // 인증 성공 시 세션에 사용자 정보 저장
-            session.setAttribute("userId", mentor.getUserId());
+            // 인증 성공 시 세션에 사용자 정보 및 타입 저장
+            session.setAttribute(USER_ID, mentor.getUserId());
+            session.setAttribute(ROLE, "mentor");
             return ResponseEntity.ok("Mentor Login successful");
         } else {
             return ResponseEntity.status(401).body("Mentor Login failed");
@@ -62,8 +65,9 @@ public class UserController {
     @PostMapping("/login/mentee")
     public ResponseEntity<String> login(@RequestBody Mentee mentee, HttpSession session) {
         if (menteeAccessService.authenticateUser(mentee)) {
-            // 인증 성공 시 세션에 사용자 정보 저장
-            session.setAttribute("userId", mentee.getUserId());
+            // 인증 성공 시 세션에 사용자 정보 및 타입 저장
+            session.setAttribute(USER_ID, mentee.getUserId());
+            session.setAttribute(ROLE, "mentee");
             return ResponseEntity.ok("Mentee Login successful");
         } else {
             return ResponseEntity.status(401).body("Mentee Login failed");
@@ -73,8 +77,9 @@ public class UserController {
     // 로그아웃
     @GetMapping("/logout")
     public ResponseEntity<String> logout(HttpSession session) {
-        // 로그아웃 시 세션 제거
-        session.removeAttribute("userId");
+        // 로그아웃 시 세션에서 사용자 정보 및 타입 제거
+        session.removeAttribute(USER_ID);
+        session.removeAttribute(ROLE);
         return ResponseEntity.ok("Logout successful");
     }
 
