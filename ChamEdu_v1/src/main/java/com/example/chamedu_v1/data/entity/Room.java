@@ -40,7 +40,7 @@ public class Room {
     @Column
     private Date endDate;
 
-    @Column(columnDefinition = "CHAR(1) DEFAULT 'w' NOT NULL")
+    @Column(columnDefinition = "CHAR(1) DEFAULT 'W' NOT NULL")
     private char status;
 
     @Column
