@@ -42,4 +42,8 @@ public class Room {
 
     @Column(columnDefinition = "CHAR(1) DEFAULT 'w' NOT NULL")
     private char status;
+
+    @Column
+    private String chatTitle;
+
 }
