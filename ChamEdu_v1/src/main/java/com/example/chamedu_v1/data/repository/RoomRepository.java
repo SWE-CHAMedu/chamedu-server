@@ -21,4 +21,5 @@ public interface RoomRepository extends JpaRepository<Room,Integer> {
 
     int countByMentee_UserId(String userId);
 
+
 }

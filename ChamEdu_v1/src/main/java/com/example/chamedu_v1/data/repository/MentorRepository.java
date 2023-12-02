@@ -15,6 +15,4 @@ public interface MentorRepository extends JpaRepository<Mentor,Long> {
     Mentor save(Mentor mentor);
 
 
-
-
 }

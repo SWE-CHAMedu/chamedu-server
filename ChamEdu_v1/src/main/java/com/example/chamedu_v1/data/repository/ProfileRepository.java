@@ -17,7 +17,4 @@ ProfileRepository extends JpaRepository<Profile,Integer> {
 
     Profile findByMentor_UserId(String userId);
 
-
-
-
 }

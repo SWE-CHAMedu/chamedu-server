@@ -121,5 +121,29 @@ public class MentorMyPageService {
         return profileInfo;
     }
 
+    public List<ChatHistoryResponseDto> chatMentorHistory(String userId) {
+        LocalDateTime currentServerTime = LocalDateTime.now();
+        List<Room> roomHistory = roomRepository.findAllByMentor_UserId(userId);
+        Mentor mentorInfo = mentorRepository.findByUserId(userId);
+
+        List<ChatHistoryResponseDto> roomDtoList = roomHistory.stream()
+                .map(room -> {
+                    ChatHistoryResponseDto dto = new ChatHistoryResponseDto();
+                    dto.setUserName(mentorInfo.getName());
+                    dto.setRoomId(room.getRoomId());
+                    dto.setStartTime(room.getStartDate());
+                    dto.setEndTime(room.getEndDate());
+                    dto.setTitle(room.getChatTitle());
+                    dto.setCheckStatus(room.getStatus());
+
+                    // Check if the room has expired
+
+
+                    return dto;
+                })
+                .collect(Collectors.toList());
+
+        return roomDtoList;
+    }
 
 }
