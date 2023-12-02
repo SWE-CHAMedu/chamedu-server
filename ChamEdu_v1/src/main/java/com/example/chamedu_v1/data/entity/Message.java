@@ -16,7 +16,7 @@ public class Message {
 
     @Id
     @Column(name = "session_id")
-    private Long sessionId; // 자식 테이블의 기본 키
+    private int sessionId; // 자식 테이블의 기본 키
 
     @OneToOne
     @MapsId
