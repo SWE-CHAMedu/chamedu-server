@@ -11,11 +11,13 @@ public class MentorProfileDto {
     private String nickname;
     private int admissionType;
     private String university;
+    private int college;
 
     public MentorProfileDto(Profile profile) {
         nickname = profile.getMentor().getNickname();
         admissionType = profile.getAdmissionType();
         university = profile.getUniversity();
+        college = profile.getCollege();
 
     }
 }
