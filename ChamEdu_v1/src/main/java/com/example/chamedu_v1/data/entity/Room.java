@@ -27,16 +27,11 @@ public class Room {
     @JoinColumn(name = "mentor_id")
     private Mentor mentor;
 
-    @Column(nullable = false)
-    private LocalDateTime maxMinute;
-
-    @Column(nullable = false)
-    private int point;
-
     @Temporal(TemporalType.TIMESTAMP)
     @Column
     private Date startDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column
     private Date endDate;
 
