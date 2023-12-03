@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class MentorMyPageController {
     public static final String USER_ID = "userId";
     private MentorMyPageService mentorMyPageService;
