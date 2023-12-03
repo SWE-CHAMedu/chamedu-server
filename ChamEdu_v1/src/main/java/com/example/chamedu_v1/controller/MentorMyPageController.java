@@ -1,10 +1,13 @@
 package com.example.chamedu_v1.controller;
 
+import com.example.chamedu_v1.data.dto.ChatAnswerRequestDto;
+import com.example.chamedu_v1.data.dto.ChatHistoryResponseDto;
 import com.example.chamedu_v1.data.dto.MentorProfileResponseDto;
 import com.example.chamedu_v1.data.dto.MentorProfileUpdateRequestDto;
 import com.example.chamedu_v1.data.entity.Mentee;
 import com.example.chamedu_v1.data.entity.Mentor;
 import com.example.chamedu_v1.data.entity.Profile;
+import com.example.chamedu_v1.data.entity.Room;
 import com.example.chamedu_v1.service.MentorMyPageService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
