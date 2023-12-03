@@ -127,6 +127,7 @@ public class MenteeMyPageService {
 
 
         List<ChatHistoryResponseDto> roomDtoList = roomHistory.stream()
+                .filter(room -> "D".equals(String.valueOf(room.getStatus())))
                 .map(room -> {
                     ChatHistoryResponseDto dto = new ChatHistoryResponseDto();
                     Mentor mentor = mentorRepository.findByMentorId(room.getMentor().getMentorId());
