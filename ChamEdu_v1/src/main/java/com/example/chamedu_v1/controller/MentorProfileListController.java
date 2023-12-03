@@ -45,6 +45,7 @@ public class MentorProfileListController {
 
     /**
      * 추천 멘토 둘러보기 - 로그인 시에만 사용가능, 로그인을 하지 않았다면 로그인하라는 메시지를 띄운다.
+     * 멘티만 사용가능하기에 멘토가 접근하면 멘티만 접근가능한 페이지라고 메시지를 띄운다.
      */
     @GetMapping("/recommend-mentor-profile-list")
     public ResponseEntity<?> getRecommendProfileList(HttpServletRequest request) throws Exception {
@@ -62,11 +63,11 @@ public class MentorProfileListController {
                     return ResponseEntity.status(500).body("멘티만 접근 가능한 페이지입니다.");
                 }
             } else {
-                // userId가 null이라면 로그인이 필요합니다.
+                // userId가 null이라면 로그인이 필요
                 return ResponseEntity.status(500).body("로그인이 필요합니다.");
             }
         } else {
-            // 세션이 존재하지 않을 때도 로그인이 필요합니다.
+            // 세션이 존재하지 않을 때도 로그인이 필요
             return ResponseEntity.status(500).body("로그인이 필요합니다.");
         }
     }

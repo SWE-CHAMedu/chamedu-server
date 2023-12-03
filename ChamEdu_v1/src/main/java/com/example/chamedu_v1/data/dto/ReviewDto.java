@@ -11,6 +11,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+@Getter
+@NoArgsConstructor
 public class ReviewDto {
     //private int reviewId;
     private int mentorId;

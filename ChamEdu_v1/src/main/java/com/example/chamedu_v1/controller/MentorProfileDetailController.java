@@ -7,17 +7,12 @@ import com.example.chamedu_v1.service.MentorProfileListService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 
 //import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -35,28 +30,36 @@ public class MentorProfileDetailController {
     @GetMapping("/mentor-profile/{mentorId}")
     @ResponseBody
     public ResponseEntity<MentorProfileDetailDto> getMentor(@PathVariable int mentorId){
-//로그인 권한 필요 없을듯
-//        HttpSession session = request.getSession();
-//        String userId = (String)session.getAttribute("userId");
+
         MentorProfileDetailDto mentorDto;
 
         mentorDto=mentorProfileDetailService.getMentorProfileDetail(mentorId);
         return ResponseEntity.ok(mentorDto);
     }
-//    @GetMapping("/mentor-profile/{request}")
-//    @ResponseBody
-//    public ResponseEntity<AvailableTimeDto> getAvailableTimeList(@PathVariable List<Time> availableTime) throws Exception{
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        Page<MentorProfileDetailDto> MentorProfileList = mentorProfileListService.getMentorProfileList(modifiedPageable, authentication);
-//        return ResponseEntity.ok(MentorProfileList);
-//    }
+    /**
+     * 멘토 상담신청 팝업 - 조회
+     */
+    @GetMapping("/mentor-profile/request/{mentorId}")
+    @ResponseBody
+    public ResponseEntity<List<Time>> getAvailableTimeList(@PathVariable int mentorId) throws Exception{
+
+        List<Time> availableTimeList = mentorProfileDetailService.getAvailableTimeList(mentorId);
+        return ResponseEntity.ok(availableTimeList);
+    }
+
+    /**
+     * 멘토 상담신청 팝업 - 신청
+     */
+
+//    @PostMapping("/mentor-profile/request/{mentorId}")
+//    public ResponseEntity<RoomDto> requestChat (@RequestBody ChatRequestDto chatRequestDto, @PathVariable int mentorId, HttpServletRequest request) throws Exception{
+//        HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
+//        String userId = (String)session.getAttribute("userId");
 //
-//    @MentorMapping("/mentor-profile/{request}")
-//    @ResponseBody
-//    public ResponseEntity<Page<MentorProfileDetailDto>> getMentorList(@PageableDefault Pageable pageable) throws Exception{
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        Pageable modifiedPageable = PageRequest.of(pageable.getPageNumber(), defaultPageSize);
-//        Page<MentorProfileDetailDto> MentorProfileList = mentorProfileListService.getMentorProfileList(modifiedPageable, authentication);
-//        return ResponseEntity.ok(MentorProfileList);
+//        return ResponseEntity.ok(mentorProfileDetailService.createChatRequest(mentorId,userId,chatRequestDto));
 //    }
+
+    /**
+     * 멘토 리뷰 작성
+     */
 }

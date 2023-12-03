@@ -5,6 +5,7 @@ import com.example.chamedu_v1.data.entity.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,5 +25,8 @@ public interface RoomRepository extends JpaRepository<Room,Integer> {
     int countByMentee_UserId(String userId);
 
     Room findByRoomId(int roomId);
+
+    @Transactional
+    Room save(Room room);
 
 }

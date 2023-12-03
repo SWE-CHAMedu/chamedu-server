@@ -27,6 +27,7 @@ public class MentorProfileDetailDto {
 
     //진행한 상담 수 - 고민해봐야함
     private int chatCount;
+    private int reviewCount;
     private List<ReviewDto> reviewList;
 
     public MentorProfileDetailDto(Profile profile) {
@@ -44,22 +45,6 @@ public class MentorProfileDetailDto {
         for (Review review : profile.getMentor().getReviewList()) {
             reviewList.add(new ReviewDto(review));
         }
+        reviewCount=reviewList.size();
     }
-    public MentorProfileDetailDto(Mentor mentor, Profile profile) {
-        profileImg = profile.getProfileImg();
-        nickname = mentor.getNickname();
-
-        university= profile.getUniversity();
-        addmissionType = profile.getAdmissionType();
-        promotonText = profile.getPromotionText();
-
-        avgScore = profile.getAvgScore();
-        chatCount=profile.getMentor().getChatCount();
-
-        reviewList = new ArrayList<>();
-        for (Review review : mentor.getReviewList()) {
-            reviewList.add(new ReviewDto(review));
-        }
-    }
-
 }

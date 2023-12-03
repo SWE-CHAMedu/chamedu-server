@@ -129,7 +129,6 @@ public class MentorMyPageService {
         Mentor mentorInfo = mentorRepository.findByUserId(userId);
 
 
-
         mentorInfo.setNickname(updateDto.getNickName());
         profileInfo.setProfileImg(updateDto.getUserImg());
         profileInfo.setUniversity(updateDto.getUniversity());
