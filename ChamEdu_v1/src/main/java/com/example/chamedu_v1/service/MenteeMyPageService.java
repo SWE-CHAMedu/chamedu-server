@@ -42,7 +42,7 @@ public class MenteeMyPageService {
     public MenteeProfileResponseDto getUserInfo(String userId){
 
         Mentee menteeInfo = menteeRepository.findByUserId(userId);
-        Room sceduledroom = roomRepository.findFirstByMentee_UserIdOrderByStartDateDesc(userId);
+        Room scheduledroom = roomRepository.findFirstByMentee_UserIdOrderByStartDateDesc(userId);
         int chatCount = roomRepository.countByMentee_UserId(userId);
         int reviewCount = reviewRepository.countByMentee_UserId(userId);
 
@@ -50,21 +50,21 @@ public class MenteeMyPageService {
         LocalDateTime currentDate = LocalDateTime.now();
 
 
-        LocalDateTime startDate = sceduledroom.getStartDate().toInstant()
-                .atZone(ZoneId.systemDefault()).toLocalDateTime();
-        log.info("currentDate={}",currentDate);
-        log.info("scheduledRoom={}", startDate);
-        if (sceduledroom.getStartDate() ==null || startDate.isBefore(currentDate)) {
-            myPageDto.setCurrentChatTime("상담 예정 시간이 없습니다.");
+        if (scheduledroom != null && scheduledroom.getStartDate() != null) {
+            LocalDateTime startDateTime = scheduledroom.getStartDate().toInstant()
+                    .atZone(ZoneId.systemDefault()).toLocalDateTime();
 
-        }else if(sceduledroom != null && sceduledroom.getStartDate() != null){
-            Duration duration = Duration.between(currentDate, startDate);
+
+            Duration duration = Duration.between(currentDate, startDateTime);
 
             long hours = duration.toHours();
             long minutes = duration.minusHours(hours).toMinutes();
 
             String currentChatTime = String.format("%d시간 %d분 후에 상담이 예정되어 있습니다.", hours, minutes);
             myPageDto.setCurrentChatTime(currentChatTime);
+
+        }else{
+            myPageDto.setCurrentChatTime("상담 예정 시간이 없습니다.");
         }
 
         myPageDto.setUserImg(menteeInfo.getProfileImg());
