@@ -19,6 +19,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/api")
 public class MenteeMyPageController {
     private MenteeMyPageService menteeMyPageService;
 

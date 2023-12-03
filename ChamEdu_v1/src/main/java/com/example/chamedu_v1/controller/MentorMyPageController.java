@@ -23,6 +23,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/api")
 public class MentorMyPageController {
     public static final String USER_ID = "userId";
     private MentorMyPageService mentorMyPageService;
