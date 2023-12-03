@@ -83,14 +83,19 @@ public class MentorProfileDetailService {
     }
 
     @Transactional
-    public RoomDto createChatRequest(int mentorId, String menteeUserId, ChatRequestDto chatRequestDto){
+    public RoomDto createChatRequest(int _mentorId, String menteeUserId, ChatRequestDto chatRequestDto){
         Mentee mentee = menteeRepository.findByUserId(menteeUserId);
-        Mentor mentor = mentorRepository.findByMentorId(mentorId);
+        Mentor mentor = mentorRepository.findByMentorId(_mentorId);
+        int menteeId=mentee.getMenteeId();
 
-        String wishChatSchedule=chatRequestDto.getWishChatSchedule();
+//        int menteeId = menteeRepository.findByMenteeUserId(menteeUserId).getMenteeId();
+//        int mentorId = _mentorId;
+
+        //Date wishChatSchedule=chatRequestDto.getWishChatSchedule();
+        Date starDate=chatRequestDto.getWishChatSchedule();
         String chatTitle=chatRequestDto.getChatTitle();
 
-        Date starDate=stringToDateConversion(wishChatSchedule);
+        //Date starDate=stringToDateConversion(wishChatSchedule);
         Date endDate=calculateEndDate(starDate);
 
         Room wishChatRoom = new Room();
@@ -104,8 +109,9 @@ public class MentorProfileDetailService {
         wishChatRoom.setChatTitle(chatTitle);
 
         Room saveRoom= roomRepository.save(wishChatRoom);
+        RoomDto roomDto=new RoomDto(saveRoom,_mentorId,menteeId);
 
-        return new RoomDto(saveRoom);
+        return roomDto;
     }
 
 

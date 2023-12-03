@@ -1,4 +1,5 @@
 package com.example.chamedu_v1.data.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,10 +20,12 @@ public class Room {
     @Column(name = "roomId")
     private int roomId;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "mentee_id")
     private Mentee mentee;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "mentor_id")
     private Mentor mentor;

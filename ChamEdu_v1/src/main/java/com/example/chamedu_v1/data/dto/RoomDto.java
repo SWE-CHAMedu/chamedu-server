@@ -14,8 +14,11 @@ import java.util.Date;
 @NoArgsConstructor
 public class RoomDto {
 
-    private Mentee mentee;
-    private Mentor mentor;
+//    private Mentee mentee;
+//    private Mentor mentor;
+
+    private int menteeId;
+    private int mentorId;
 
     private Date startDate;
     private Date endDate;
@@ -24,10 +27,28 @@ public class RoomDto {
 
     private String chatTitle;
 
-    public RoomDto(Room saveRoom){
+//    public RoomDto(Room saveRoom){
+//
+//        mentee=saveRoom.getMentee();
+//        mentor=saveRoom.getMentor();
+////
+////        menteeId=saveRoom.getMentee().getMenteeId();
+////        mentorId=saveRoom.getMentor().getMentorId();
+//
+//        startDate=saveRoom.getStartDate();
+//        endDate=saveRoom.getEndDate();
+//        status=saveRoom.getStatus();
+//        chatTitle=saveRoom.getChatTitle();
+//    }
 
-        mentee=saveRoom.getMentee();
-        mentor=saveRoom.getMentor();
+    public RoomDto(Room saveRoom,int _mentorId, int _menteeId){
+
+//        mentee=saveRoom.getMentee();
+//        mentor=saveRoom.getMentor();
+
+        menteeId=_menteeId;
+        mentorId=_mentorId;
+
         startDate=saveRoom.getStartDate();
         endDate=saveRoom.getEndDate();
         status=saveRoom.getStatus();

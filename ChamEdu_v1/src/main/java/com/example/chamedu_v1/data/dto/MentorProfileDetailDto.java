@@ -17,6 +17,7 @@ public class MentorProfileDetailDto {
     private String nickname;
 
     private String university;
+    private int college;
     private int addmissionType;
 
     private String promotonText;
@@ -35,6 +36,7 @@ public class MentorProfileDetailDto {
         nickname = profile.getMentor().getNickname();
 
         university= profile.getUniversity();
+        college=profile.getCollege();
         addmissionType = profile.getAdmissionType();
         promotonText = profile.getPromotionText();
 
