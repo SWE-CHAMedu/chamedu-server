@@ -1,7 +1,6 @@
 package com.example.chamedu_v1.controller;
 
 import com.example.chamedu_v1.data.dto.*;
-import com.example.chamedu_v1.data.entity.Mentee;
 import com.example.chamedu_v1.data.repository.ProfileRepository;
 import com.example.chamedu_v1.service.MentorProfileListService;
 
@@ -9,10 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 //import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,42 +42,10 @@ public class MentorProfileListController {
         Page<MentorProfileDto> profileList = mentorProfileListService.getProfileList(pageable);
         return ResponseEntity.ok(profileList);
     }
-//    @GetMapping("/recommend-mentor-profile-list")
-//    public ResponseEntity<MentorProfileListDto> getRecommendProfileList(HttpServletRequest request) throws Exception {
-//
-//        HttpSession session = request.getSession();
-//        String userId = (String)session.getAttribute("userId");
-//        MentorProfileListDto recommendProfileList = mentorProfileListService.getRecommendProfileList(userId);
-//        return ResponseEntity.ok(recommendProfileList);
 
-//    }
     /**
      * 추천 멘토 둘러보기 - 로그인 시에만 사용가능, 로그인을 하지 않았다면 로그인하라는 메시지를 띄운다.
      */
-//
-//@GetMapping("/recommend-mentor-profile-list")
-//public ResponseEntity<?> getRecommendProfileList(HttpServletRequest request) throws Exception {
-//    HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
-//    if (session != null) {
-//        String userId = (String)session.getAttribute("userId");
-//        String role = (String) session.getAttribute("ROLE");
-//        if (userId != null) {
-//            Mentee mentee = (Mentee) session.getAttribute("mentee");
-//            if(mentee!=null){
-//            MentorProfileListDto recommendProfileList = mentorProfileListService.getRecommendProfileList(userId);
-//            return ResponseEntity.ok(recommendProfileList);
-//            }else{
-//                return ResponseEntity.status(500).body("멘티만 접근 가능한 페이지입니다.");
-//            }
-//        } else {
-//            // userId가 null이라면 로그인이 필요합니다.
-//            return ResponseEntity.status(500).body("로그인이 필요합니다.");
-//        }
-//    } else {
-//        // 세션이 존재하지 않을 때도 로그인이 필요합니다.
-//        return ResponseEntity.status(500).body("로그인이 필요합니다.");
-//    }
-//}
     @GetMapping("/recommend-mentor-profile-list")
     public ResponseEntity<?> getRecommendProfileList(HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
