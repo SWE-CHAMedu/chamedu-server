@@ -1,10 +1,6 @@
 package com.example.chamedu_v1.service;
 
-import com.example.chamedu_v1.data.dto.ChatHistoryResponseDto;
-import com.example.chamedu_v1.data.dto.ChatAnswerRequestDto;
-import com.example.chamedu_v1.data.dto.MentorProfileResponseDto;
-import com.example.chamedu_v1.data.dto.MentorProfileUpdateRequestDto;
-import com.example.chamedu_v1.data.dto.ReviewMyPageResponseDto;
+import com.example.chamedu_v1.data.dto.*;
 import com.example.chamedu_v1.data.entity.*;
 import com.example.chamedu_v1.data.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +20,8 @@ import java.util.stream.Collectors;
 @Component
 @Service
 public class MentorMyPageService {
+
+    public static final int MENTOR_INCOME = 100; // 건당 멘토 수익
 
     @Autowired
     private MentorRepository mentorRepository;
@@ -49,6 +47,21 @@ public class MentorMyPageService {
         if (chatAnswerRequestDto.isAnswer()){ room.setStatus('A'); }
         else { room.setStatus('D'); }
         roomRepository.save(room);
+    }
+
+    // 채팅 끝난 뒤처리
+    @Transactional
+    public void afterChatFinish(ChatCompleteDto chatCompleteDto){
+        // 룸 상태 'C'로 변경
+        Room room = roomRepository.findByRoomId(chatCompleteDto.getRoomId());
+        room.setStatus('C');
+        roomRepository.save(room);
+        // 멘토 상담횟수 증가 및 포인트 부여
+        Mentor mentor = mentorRepository.findByUserId(chatCompleteDto.getMentor_userId());
+        mentor.setChatCount(mentor.getChatCount()+1);
+        mentor.setPoint(mentor.getPoint()+MENTOR_INCOME);
+        mentorRepository.save(mentor);
+        // 채팅내역 기록?에도 넣어야하는지
     }
 
     public MentorProfileResponseDto getUserInfo(String userId) {

@@ -72,8 +72,6 @@ public class MentorMyPageController {
         if(mentorInfo!=null){
             return ResponseEntity.ok("회원 정보 수정에 성공하였습니다.");
         }
-
-
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원 정보 수정에 실패하였습니다.");
 
     }
