@@ -50,20 +50,26 @@ public class MentorProfileListController {
     @GetMapping("/recommend-mentor-profile-list")
     public ResponseEntity<?> getRecommendProfileList(HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
-        if (session != null) {
+        //if (session != null) { //세션은 늘 존재하는듯,,!
             //controller처럼 USER_ID,ROLE로 설정하면 getAttribute하지 못함.
             String userId = (String) session.getAttribute("userId");
             String role = (String) session.getAttribute("role");
+
+            if (userId != null) {
                 if ("mentee".equals(role)) { // ROLE이 "mentee"인 경우에만 처리
-                    MentorProfileListDto recommendProfileList = mentorProfileListService.getRecommendProfileList(userId);
-                    return ResponseEntity.ok(recommendProfileList);
+                        MentorProfileListDto recommendProfileList = mentorProfileListService.getRecommendProfileList(userId);
+                        return ResponseEntity.ok(recommendProfileList);
                 } else {
                     return ResponseEntity.status(500).body("멘티만 접근 가능한 페이지입니다.");
                 }
-        } else {
-            // 세션이 존재하지 않을 때도 로그인이 필요
-            return ResponseEntity.status(500).body("로그인이 필요합니다.");
-        }
+            } else {
+                // userId가 null이라면 로그인이 필요
+                return ResponseEntity.status(500).body("로그인이 필요합니다.");
+            }
+//        } else {
+//            // 세션이 존재하지 않을 때도 로그인이 필요
+//            return ResponseEntity.status(500).body("로그인이 필요합니다.");
+//        }
     }
 
 
