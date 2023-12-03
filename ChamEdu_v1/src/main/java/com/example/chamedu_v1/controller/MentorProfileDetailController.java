@@ -57,14 +57,24 @@ public class MentorProfileDetailController {
      */
 
     @PostMapping("/mentor-profile/request/{mentorId}")
-    public ResponseEntity<RoomDto> requestChat (@RequestBody ChatRequestDto chatRequestDto, @PathVariable int mentorId, HttpServletRequest request) throws Exception{
+    public ResponseEntity<?> requestChat (@RequestBody ChatRequestDto chatRequestDto, @PathVariable int mentorId, HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
-        String mentorUserId = (String)session.getAttribute("userId");
-
-        return ResponseEntity.ok(mentorProfileDetailService.createChatRequest(mentorId,mentorUserId,chatRequestDto));
+        if (session != null) {
+            String mentorUserId = (String) session.getAttribute("userId");
+            return ResponseEntity.ok(mentorProfileDetailService.createChatRequest(mentorId, mentorUserId, chatRequestDto));
+        } else {
+            // 세션이 존재하지 않을 때 로그인이 필요
+            return ResponseEntity.status(500).body("로그인이 필요합니다.");
+        }
     }
-
     /**
      * 멘토 리뷰 작성
      */
+//    @PostMapping("/mentor-profile/review/{mentorId}")
+//    public ResponseEntity<ReviewDto> createReview (@RequestBody ReviewDto reviewDto, @PathVariable int mentorId, HttpServletRequest request) throws Exception{
+//        HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
+//        String mentorUserId = (String)session.getAttribute("userId");
+//
+//        return ResponseEntity.ok(mentorProfileDetailService.createChatRequest(mentorId,mentorUserId,ReviewDto));
+//    }
 }
