@@ -1,9 +1,6 @@
 package com.example.chamedu_v1.controller;
 
-import com.example.chamedu_v1.data.dto.ChatAnswerRequestDto;
-import com.example.chamedu_v1.data.dto.ChatHistoryResponseDto;
-import com.example.chamedu_v1.data.dto.MentorProfileResponseDto;
-import com.example.chamedu_v1.data.dto.MentorProfileUpdateRequestDto;
+import com.example.chamedu_v1.data.dto.*;
 import com.example.chamedu_v1.data.entity.Mentee;
 import com.example.chamedu_v1.data.entity.Mentor;
 import com.example.chamedu_v1.data.entity.Profile;
@@ -47,13 +44,18 @@ public class MentorMyPageController {
 
     // 채팅 요청 목록 조회
     @GetMapping("/mentor-mypage/chat-request")
-    public ResponseEntity<List<Integer>> check(HttpSession session) {
+    public ResponseEntity<List<ChatInfoDto>> check(HttpSession session) {
         String userId = (String)session.getAttribute(USER_ID);
-        List<Integer> roomIdList = mentorMyPageService.receiveChatRequests(userId)
-                .stream()
-                .map(Room::getRoomId)
-                .toList();
-        return ResponseEntity.ok(roomIdList);
+        List<ChatInfoDto> chatRequestList = mentorMyPageService.checkChatRequests(userId, 'W');
+        return ResponseEntity.ok(chatRequestList);
+    }
+
+    // 채팅 예정 목록 조회
+    @GetMapping("/mentor-mypage/chat-plans")
+    public ResponseEntity<List<ChatInfoDto>> planChat(HttpSession session) {
+        String userId = (String)session.getAttribute(USER_ID);
+        List<ChatInfoDto> chatPlanList = mentorMyPageService.checkChatRequests(userId, 'A');
+        return ResponseEntity.ok(chatPlanList);
     }
 
     // 채팅 요청에 응답

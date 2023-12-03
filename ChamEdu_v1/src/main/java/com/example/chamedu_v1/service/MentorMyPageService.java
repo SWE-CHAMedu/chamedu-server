@@ -1,5 +1,6 @@
 package com.example.chamedu_v1.service;
-
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import com.example.chamedu_v1.data.dto.*;
 import com.example.chamedu_v1.data.entity.*;
 import com.example.chamedu_v1.data.repository.*;
@@ -19,6 +20,7 @@ import java.time.ZoneId;
 import java.time.temporal.Temporal;
 import java.util.Base64;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Component
@@ -35,14 +37,31 @@ public class MentorMyPageService {
     private ReviewRepository reviewRepository;
     @Autowired
     private RoomRepository roomRepository;
-
     @Autowired
     private MenteeRepository menteeRepository;
 
-    // 상담신청 목록 조회
-    public List<Room> receiveChatRequests(String userId) {
-        return roomRepository.findAllByMentor_UserId(userId);
+    // 상담목록 조회 ('W'는 신청목록, 'A'는 예정목록)
+    public List<ChatInfoDto> checkChatRequests(String userId, char status) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.KOREA);
+        List<Room> rooms= roomRepository.findAllByMentor_UserIdAndStatus(userId, status);
+        return rooms.stream()
+                .map(room -> {
+                    String dateString = dateFormat.format(room.getStartDate());
+                    String startTimeString = timeFormat.format(room.getStartDate());
+                    String endTimeString = timeFormat.format(room.getEndDate());
+                    return new ChatInfoDto(
+                            room.getRoomId(),
+                            room.getMentee().getName(),
+                            dateString,
+                            startTimeString+"~"+endTimeString,
+                            room.getChatTitle()
+                    );
+                })
+                .toList();
     }
+
+
 
     // 상담 수락 또는 거절 처리
     @Transactional
@@ -143,7 +162,6 @@ public class MentorMyPageService {
     public Profile updateMentorProfile(String userId, MentorProfileUpdateRequestDto updateDto){
         Profile profileInfo = profileRepository.findByMentor_UserId(userId);
         Mentor mentorInfo = mentorRepository.findByUserId(userId);
-
 
         mentorInfo.setNickname(updateDto.getNickName());
         profileInfo.setProfileImg(updateDto.getUserImg());
