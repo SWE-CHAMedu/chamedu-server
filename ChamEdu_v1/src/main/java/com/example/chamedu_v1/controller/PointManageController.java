@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
+@RequestMapping("/point")
 public class PointManageController {
 
     private final PointManageService pointManageService;
