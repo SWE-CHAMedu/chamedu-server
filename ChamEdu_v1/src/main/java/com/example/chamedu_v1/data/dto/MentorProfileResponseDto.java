@@ -16,7 +16,8 @@ public class MentorProfileResponseDto {
     private int admissionType;
     private String nickname;
     private String university;
-    private String major;
+    private float avgScore;
+    private int requestRoomCount;
     private String promotionText;
     private String currentChatTime;
     private int reviewCount;

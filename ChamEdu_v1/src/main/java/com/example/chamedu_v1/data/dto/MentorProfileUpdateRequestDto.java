@@ -17,6 +17,7 @@ public class MentorProfileUpdateRequestDto {
     private String promotionText;
     private String userImg;
     private String university;
+    private int admissionType;
     private int college;
     private List<String> availableTime;
 

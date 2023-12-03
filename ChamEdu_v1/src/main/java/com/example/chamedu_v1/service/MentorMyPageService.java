@@ -4,14 +4,8 @@ import com.example.chamedu_v1.data.dto.ChatHistoryResponseDto;
 import com.example.chamedu_v1.data.dto.MentorProfileResponseDto;
 import com.example.chamedu_v1.data.dto.MentorProfileUpdateRequestDto;
 import com.example.chamedu_v1.data.dto.ReviewMyPageResponseDto;
-import com.example.chamedu_v1.data.entity.Mentor;
-import com.example.chamedu_v1.data.entity.Profile;
-import com.example.chamedu_v1.data.entity.Review;
-import com.example.chamedu_v1.data.entity.Room;
-import com.example.chamedu_v1.data.repository.MentorRepository;
-import com.example.chamedu_v1.data.repository.ProfileRepository;
-import com.example.chamedu_v1.data.repository.ReviewRepository;
-import com.example.chamedu_v1.data.repository.RoomRepository;
+import com.example.chamedu_v1.data.entity.*;
+import com.example.chamedu_v1.data.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -19,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Time;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.Temporal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,13 +35,17 @@ public class MentorMyPageService {
     @Autowired
     private RoomRepository roomRepository;
 
+    @Autowired
+    private MenteeRepository menteeRepository;
 
 
     public MentorProfileResponseDto getUserInfo(String userId) {
         Mentor mentorInfo = mentorRepository.findByUserId(userId);
         Profile profileInfo = profileRepository.findByMentor_UserId(userId);
-        Room room = roomRepository.findByMentor_UserIdOrderByStartDateAsc(userId);
+        Room room = roomRepository.findFirstByMentor_UserIdOrderByStartDateDesc(userId);
         int reviewCount = reviewRepository.countByMentor_UserId(userId);
+        float avgScore = reviewRepository.findAveragePointByMentorUserId(userId);
+        int requestRoomCount = roomRepository.countByMentor_UserId(userId);
 
         MentorProfileResponseDto myPageDto = new MentorProfileResponseDto();
 
@@ -72,6 +72,8 @@ public class MentorMyPageService {
         myPageDto.setAdmissionType(profileInfo.getAdmissionType());
         myPageDto.setUniversity(profileInfo.getUniversity());
         myPageDto.setPromotionText(profileInfo.getPromotionText());
+        myPageDto.setAvgScore(avgScore);
+        myPageDto.setRequestRoomCount(requestRoomCount);
         myPageDto.setReviewCount(reviewCount);
 
         List<Review> reviewList = reviewRepository.findAllByMentor_UserId(userId);
@@ -82,7 +84,7 @@ public class MentorMyPageService {
                     reviewDto.setReviewId(review.getReviewId());
                     reviewDto.setTitle(review.getTitle());
                     reviewDto.setPoint(review.getScore());
-                    reviewDto.setContent(reviewDto.getContent());
+                    reviewDto.setContent(review.getContent());
                     // 필요한 다른 정보들도 설정해야 합니다.
                     return reviewDto;
                 })
@@ -107,9 +109,8 @@ public class MentorMyPageService {
         profileInfo.setProfileImg(updateDto.getUserImg());
         profileInfo.setUniversity(updateDto.getUniversity());
         profileInfo.setCollege(updateDto.getCollege());
-        profileInfo.setAdmissionType(profileInfo.getAdmissionType());
-        profileInfo.setPromotionText(profileInfo.getPromotionText());
-        //가능시간 추가
+        profileInfo.setAdmissionType(updateDto.getAdmissionType());
+        profileInfo.setPromotionText(updateDto.getPromotionText());
 
         List<Time> convertedAvailableTime = updateDto.convertToTimeList();
         mentorInfo.setAvailableTime(convertedAvailableTime);
@@ -126,24 +127,42 @@ public class MentorMyPageService {
         List<Room> roomHistory = roomRepository.findAllByMentor_UserId(userId);
         Mentor mentorInfo = mentorRepository.findByUserId(userId);
 
+
+
         List<ChatHistoryResponseDto> roomDtoList = roomHistory.stream()
                 .map(room -> {
                     ChatHistoryResponseDto dto = new ChatHistoryResponseDto();
-                    dto.setUserName(mentorInfo.getName());
+                    Mentee mentee = menteeRepository.findByMenteeId(room.getMentee().getMenteeId());
+                    dto.setUserName(mentee.getName());
                     dto.setRoomId(room.getRoomId());
-                    dto.setStartTime(room.getStartDate());
-                    dto.setEndTime(room.getEndDate());
-                    dto.setTitle(room.getChatTitle());
-                    dto.setCheckStatus(room.getStatus());
 
+                    LocalDateTime startDate = room.getStartDate().toInstant().atZone(ZoneId.of("Asia/Seoul")).toLocalDateTime();
+                    LocalDateTime endDate = room.getEndDate().toInstant().atZone(ZoneId.of("Asia/Seoul")).toLocalDateTime();
+                    dto.setStartTime(startDate);
+                    dto.setEndTime(endDate);
+                    dto.setTitle(room.getChatTitle());
                     // Check if the room has expired
+                    LocalDateTime expired = room.getStartDate().toInstant()
+                            .atZone(ZoneId.systemDefault()).toLocalDateTime();
+                    Duration duration = Duration.between(expired, currentServerTime);
+                    if(duration.toDays() > 30){
+                        dto.setCheckStatus("만료됨");
+                    }
+                    else{
+                        dto.setCheckStatus("채팅조회");
+                    }
+
 
 
                     return dto;
                 })
                 .collect(Collectors.toList());
 
+
+
         return roomDtoList;
     }
+
+
 
 }

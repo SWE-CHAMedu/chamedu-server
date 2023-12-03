@@ -1,5 +1,6 @@
 package com.example.chamedu_v1.controller;
 
+import com.example.chamedu_v1.data.dto.ChatHistoryResponseDto;
 import com.example.chamedu_v1.data.dto.MentorProfileResponseDto;
 import com.example.chamedu_v1.data.dto.MentorProfileUpdateRequestDto;
 import com.example.chamedu_v1.data.entity.Mentee;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class MentorMyPageController {
@@ -54,6 +57,18 @@ public class MentorMyPageController {
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원 정보 수정에 실패하였습니다.");
 
+    }
+
+    @GetMapping("/mentor-mypage/chat-log")
+    public ResponseEntity<List<ChatHistoryResponseDto>> MentorChatLogHistory(HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+
+        String userId = (String)session.getAttribute("userId");
+
+        List<ChatHistoryResponseDto> chatHistoryList = mentorMyPageService.chatMentorHistory(userId);
+
+        return ResponseEntity.ok(chatHistoryList);
     }
 
 

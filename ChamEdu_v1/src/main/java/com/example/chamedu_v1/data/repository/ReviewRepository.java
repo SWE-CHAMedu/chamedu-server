@@ -19,4 +19,9 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
     int countByMentee_UserId(String userId);
 
+    @Query("SELECT COALESCE(AVG(review.score), 0) FROM Review review WHERE review.mentor.userId = :userId")
+    float findAveragePointByMentorUserId(@Param("userId") String userId);
+
+
+
 }

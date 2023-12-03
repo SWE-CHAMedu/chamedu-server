@@ -1,5 +1,6 @@
 package com.example.chamedu_v1.data.repository;
 
+import com.example.chamedu_v1.data.entity.Mentor;
 import com.example.chamedu_v1.data.entity.Review;
 import com.example.chamedu_v1.data.entity.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,11 +16,15 @@ public interface RoomRepository extends JpaRepository<Room,Integer> {
 
     List<Room> findAllByMentor_UserId(String userId);
 
-    Room findByMentee_UserIdOrderByStartDateAsc(String userId);
+    Room findFirstByMentee_UserIdOrderByStartDateDesc(String userId);
 
-    Room findByMentor_UserIdOrderByStartDateAsc(String userId);
+    Room findFirstByMentor_UserIdOrderByStartDateDesc(String userId);
+
+    int countByMentor_UserId(String userId);
 
     int countByMentee_UserId(String userId);
+
+    Mentor findByMentor_UserId(String userId);
 
 
 }
