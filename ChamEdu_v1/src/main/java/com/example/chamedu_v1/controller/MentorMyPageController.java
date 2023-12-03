@@ -56,6 +56,17 @@ public class MentorMyPageController {
         return ResponseEntity.ok(roomIdList);
     }
 
+    // 채팅 예정 목록 조회
+    @GetMapping("/mentor-mypage/chat-plans")
+    public ResponseEntity<List<Integer>> planChat(HttpSession session) {
+        String userId = (String)session.getAttribute(USER_ID);
+        List<Integer> roomIdList = mentorMyPageService.plannedChatRequests(userId)
+                .stream()
+                .map(Room::getRoomId)
+                .toList();
+        return ResponseEntity.ok(roomIdList);
+    }
+
     // 채팅 요청에 응답
     @PostMapping("/mentor-mypage/chat-request/answer")
     public ResponseEntity<String> answer( @RequestBody ChatAnswerRequestDto chatAnswerRequestDto) {

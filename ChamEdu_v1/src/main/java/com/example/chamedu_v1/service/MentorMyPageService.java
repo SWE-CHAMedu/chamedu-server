@@ -37,9 +37,13 @@ public class MentorMyPageService {
 
     // 상담신청 목록 조회
     public List<Room> receiveChatRequests(String userId) {
-        return roomRepository.findAllByMentor_UserId(userId);
+        return roomRepository.findAllByMentor_UserIdAndStatus(userId, 'W');
     }
 
+    // 상담예정 목록 조회
+    public List<Room> plannedChatRequests(String userId) {
+        return roomRepository.findAllByMentor_UserIdAndStatus(userId, 'A');
+    }
     // 상담 수락 또는 거절 처리
     @Transactional
     public void answerChatRequests(ChatAnswerRequestDto chatAnswerRequestDto) {
@@ -127,7 +131,6 @@ public class MentorMyPageService {
     public Profile updateMentorProfile(String userId, MentorProfileUpdateRequestDto updateDto){
         Profile profileInfo = profileRepository.findByMentor_UserId(userId);
         Mentor mentorInfo = mentorRepository.findByUserId(userId);
-
 
         mentorInfo.setNickname(updateDto.getNickName());
         profileInfo.setProfileImg(updateDto.getUserImg());

@@ -15,18 +15,18 @@ public interface RoomRepository extends JpaRepository<Room,Integer> {
     List<Room> findAllByMentee_UserId(String userId);
 
     List<Room> findAllByMentor_UserId(String userId);
+    List<Room> findAllByMentor_UserIdAndStatus(String userId, char status);
 
     Room findFirstByMentee_UserIdOrderByStartDateDesc(String userId);
-
     Room findFirstByMentor_UserIdOrderByStartDateDesc(String userId);
 
     int countByMentor_UserId(String userId);
-
     int countByMentee_UserId(String userId);
 
     Room findByRoomId(int roomId);
 
     @Transactional
     Room save(Room room);
+
 
 }
