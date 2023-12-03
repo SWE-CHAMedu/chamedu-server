@@ -8,6 +8,7 @@ import com.example.chamedu_v1.data.repository.MentorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class PointManageServiceImpl implements PointManageService{
 
@@ -36,8 +37,9 @@ public class PointManageServiceImpl implements PointManageService{
         int refundedPoints = refundDTO.getChangedPoints();
 
         Mentor mentor = mentorRepository.findByUserId(userId);
-        mentor.setPoint(mentor.getPoint() - refundedPoints);
+        mentor.setPoint(mentor.getPoint()    - refundedPoints);
         mentorRepository.save(mentor);
+
     }
 
 }
