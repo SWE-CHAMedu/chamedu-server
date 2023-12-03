@@ -1,6 +1,7 @@
 package com.example.chamedu_v1.service;
 
 import com.example.chamedu_v1.data.dto.ChatHistoryResponseDto;
+import com.example.chamedu_v1.data.dto.ChatAnswerRequestDto;
 import com.example.chamedu_v1.data.dto.MentorProfileResponseDto;
 import com.example.chamedu_v1.data.dto.MentorProfileUpdateRequestDto;
 import com.example.chamedu_v1.data.dto.ReviewMyPageResponseDto;
@@ -28,16 +29,27 @@ public class MentorMyPageService {
     private MentorRepository mentorRepository;
     @Autowired
     private ProfileRepository profileRepository;
-
     @Autowired
     private ReviewRepository reviewRepository;
-
     @Autowired
     private RoomRepository roomRepository;
 
     @Autowired
     private MenteeRepository menteeRepository;
 
+    // 상담신청 목록 조회
+    public List<Room> receiveChatRequests(String userId) {
+        return roomRepository.findAllByMentor_UserId(userId);
+    }
+
+    // 상담 수락 또는 거절 처리
+    @Transactional
+    public void answerChatRequests(ChatAnswerRequestDto chatAnswerRequestDto) {
+        Room room = roomRepository.findByRoomId(chatAnswerRequestDto.getRoomId());
+        if (chatAnswerRequestDto.isAnswer()){ room.setStatus('A'); }
+        else { room.setStatus('D'); }
+        roomRepository.save(room);
+    }
 
     public MentorProfileResponseDto getUserInfo(String userId) {
         Mentor mentorInfo = mentorRepository.findByUserId(userId);

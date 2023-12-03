@@ -10,12 +10,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface
 ProfileRepository extends JpaRepository<Profile,Integer> {
 
     Profile findByMentorMentorId(int mentorId);
-    //Profile findAllByMentorChatCountDesc(Pageable pageable);
+    List<Profile> findAllByOrderByMentorChatCountDesc(Pageable pageable);
+    List<Profile> findByAdmissionType(int wishAdmissionType,Pageable pageable);
+    List<Profile> findByCollege(int wishCollege,Pageable pageable);
+
     Page<Profile> findAllByOrderByMentorMentorIdDesc(Pageable pageable);
 
     Profile save(Profile profile);

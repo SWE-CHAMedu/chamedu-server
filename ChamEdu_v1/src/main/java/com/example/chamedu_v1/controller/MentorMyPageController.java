@@ -1,6 +1,5 @@
 package com.example.chamedu_v1.controller;
 
-import com.example.chamedu_v1.data.dto.ChatHistoryResponseDto;
 import com.example.chamedu_v1.data.dto.MentorProfileResponseDto;
 import com.example.chamedu_v1.data.dto.MentorProfileUpdateRequestDto;
 import com.example.chamedu_v1.data.entity.Mentee;
@@ -12,15 +11,16 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import java.util.List;
 
 @RestController
 public class MentorMyPageController {
+    public static final String USER_ID = "userId";
     private MentorMyPageService mentorMyPageService;
 
     @Autowired
@@ -38,16 +38,32 @@ public class MentorMyPageController {
         MentorProfileResponseDto dto = mentorMyPageService.getUserInfo(userId);
 
         return ResponseEntity.ok(dto);
-
     }
+
+    // 채팅 요청 목록 조회
+    @GetMapping("/mentor-mypage/chat-request")
+    public ResponseEntity<List<Integer>> check(HttpSession session) {
+        String userId = (String)session.getAttribute(USER_ID);
+        List<Integer> roomIdList = mentorMyPageService.receiveChatRequests(userId)
+                .stream()
+                .map(Room::getRoomId)
+                .toList();
+        return ResponseEntity.ok(roomIdList);
+    }
+
+    // 채팅 요청에 응답
+    @PostMapping("/mentor-mypage/chat-request/answer")
+    public ResponseEntity<String> answer( @RequestBody ChatAnswerRequestDto chatAnswerRequestDto) {
+        mentorMyPageService.answerChatRequests(chatAnswerRequestDto);
+        return ResponseEntity.ok("응답이 정상적으로 처리되었습니다.");
+    }
+
 
     @PutMapping("/mentor-mypage/profile/update")
     public ResponseEntity<String> updateMentorProfile(HttpServletRequest request, @RequestBody MentorProfileUpdateRequestDto updateRequestDto){
 
         HttpSession session = request.getSession();
-
-        String userId = (String)session.getAttribute("userId");
-
+        String userId = (String)session.getAttribute(USER_ID);
         Profile mentorInfo = mentorMyPageService.updateMentorProfile(userId, updateRequestDto);
 
         if(mentorInfo!=null){

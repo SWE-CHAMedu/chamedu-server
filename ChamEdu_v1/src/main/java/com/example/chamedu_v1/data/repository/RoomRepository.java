@@ -1,6 +1,5 @@
 package com.example.chamedu_v1.data.repository;
 
-import com.example.chamedu_v1.data.entity.Mentor;
 import com.example.chamedu_v1.data.entity.Review;
 import com.example.chamedu_v1.data.entity.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,5 +25,7 @@ public interface RoomRepository extends JpaRepository<Room,Integer> {
 
     Mentor findByMentor_UserId(String userId);
 
+
+    Room findByRoomId(int roomId);
 
 }
