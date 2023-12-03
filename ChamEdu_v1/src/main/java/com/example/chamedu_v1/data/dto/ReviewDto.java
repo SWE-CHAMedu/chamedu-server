@@ -4,6 +4,7 @@ package com.example.chamedu_v1.data.dto;
 import com.example.chamedu_v1.data.entity.Review;
 import com.example.chamedu_v1.data.entity.Mentee;
 import com.example.chamedu_v1.data.entity.Mentor;
+import com.example.chamedu_v1.data.entity.Room;
 import lombok.*;
 
 import java.io.Serializable;
@@ -31,5 +32,12 @@ public class ReviewDto {
         content=review.getContent();
         score=review.getScore();
 
+    }
+    public ReviewDto(Review review, int _mentorId, int _menteeId){
+        menteeId=_menteeId;
+        mentorId=_mentorId;
+        title=review.getTitle();
+        content=review.getContent();
+        score=review.getScore();
     }
 }

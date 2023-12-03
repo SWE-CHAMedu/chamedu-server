@@ -59,9 +59,11 @@ public class MentorProfileDetailController {
     @PostMapping("/mentor-profile/request/{mentorId}")
     public ResponseEntity<?> requestChat (@RequestBody ChatRequestDto chatRequestDto, @PathVariable int mentorId, HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
-        if (session != null) {
-            String mentorUserId = (String) session.getAttribute("userId");
-            return ResponseEntity.ok(mentorProfileDetailService.createChatRequest(mentorId, mentorUserId, chatRequestDto));
+        String mentorUserId = (String)session.getAttribute("userId");
+
+        if (mentorUserId != null) {
+            String menteeUserId = (String) session.getAttribute("userId");
+            return ResponseEntity.ok(mentorProfileDetailService.createChatRequest(mentorId, menteeUserId, chatRequestDto));
         } else {
             // 세션이 존재하지 않을 때 로그인이 필요
             return ResponseEntity.status(500).body("로그인이 필요합니다.");
@@ -70,11 +72,17 @@ public class MentorProfileDetailController {
     /**
      * 멘토 리뷰 작성
      */
-//    @PostMapping("/mentor-profile/review/{mentorId}")
-//    public ResponseEntity<ReviewDto> createReview (@RequestBody ReviewDto reviewDto, @PathVariable int mentorId, HttpServletRequest request) throws Exception{
-//        HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
-//        String mentorUserId = (String)session.getAttribute("userId");
-//
-//        return ResponseEntity.ok(mentorProfileDetailService.createChatRequest(mentorId,mentorUserId,ReviewDto));
-//    }
+    @PostMapping("/mentor-profile/review/{mentorId}")
+    public ResponseEntity<?> createReview (@RequestBody ReviewRequestDto reviewDto, @PathVariable int mentorId, HttpServletRequest request) throws Exception{
+        HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
+        String menteeUserId = (String)session.getAttribute("userId");
+        if (menteeUserId != null){
+            mentorProfileDetailService.createReview(mentorId,menteeUserId,reviewDto);
+            return ResponseEntity.ok("리뷰가 작성되었습니다.");
+
+        }else{
+            // 세션이 존재하지 않을 때 로그인이 필요
+            return ResponseEntity.status(500).body("로그인이 필요합니다.");
+        }
+    }
 }

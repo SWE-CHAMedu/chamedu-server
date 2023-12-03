@@ -9,6 +9,7 @@ import com.example.chamedu_v1.data.repository.MenteeRepository;
 import com.example.chamedu_v1.data.repository.MentorRepository;
 import com.example.chamedu_v1.data.repository.ReviewRepository;
 import com.example.chamedu_v1.data.repository.RoomRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -96,18 +97,12 @@ public class MenteeMyPageService {
                 .collect(Collectors.toList());
 
         myPageDto.setReqeustRoomList(roomDtoList);
-
-
-
         return myPageDto;
-
-
     }
 
 
     public Mentee updateMenteeProfile(String userId, MenteeProfileUpdateDto profileUpdateDto){
         Mentee menteeInfo = menteeRepository.findByUserId(userId);
-
 
         menteeInfo.setNickname(profileUpdateDto.getNickName());
         menteeInfo.setInfo(profileUpdateDto.getInfo());
@@ -124,8 +119,6 @@ public class MenteeMyPageService {
     public List<ChatHistoryResponseDto> chatMenteeHistory(String userId) {
         LocalDateTime currentServerTime = LocalDateTime.now();
         List<Room> roomHistory = roomRepository.findAllByMentee_UserId(userId);
-
-
 
         List<ChatHistoryResponseDto> roomDtoList = roomHistory.stream()
                 .filter(room -> "C".equals(String.valueOf(room.getStatus())))
@@ -151,8 +144,6 @@ public class MenteeMyPageService {
                         dto.setCheckStatus("채팅조회");
                     }
 
-
-
                     return dto;
                 })
                 .collect(Collectors.toList());
@@ -162,5 +153,9 @@ public class MenteeMyPageService {
         return roomDtoList;
     }
 
-
+    @Transactional
+    public String deleteReview(int reviewId) {
+        reviewRepository.deleteById(reviewId);
+        return "리뷰가 삭제되었습니다.";
+    }
 }

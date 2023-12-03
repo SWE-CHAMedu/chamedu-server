@@ -68,9 +68,15 @@ public class MenteeMyPageController {
         return ResponseEntity.ok(chatHistoryList);
     }
 
-
-
-
+    @DeleteMapping("/review/{review_id}")
+    public ResponseEntity<String> deleteReview(@PathVariable int review_id, HttpServletRequest request){
+        HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
+        String menteeUserId = (String)session.getAttribute("userId");
+        if (menteeUserId != null) {
+            return ResponseEntity.ok(menteeMyPageService.deleteReview(review_id));
+        }
+        return ResponseEntity.ok("fail");
+    }
 
 
 }

@@ -1,8 +1,6 @@
 package com.example.chamedu_v1.service;
 
-import com.example.chamedu_v1.data.dto.ChatRequestDto;
-import com.example.chamedu_v1.data.dto.RoomDto;
-import com.example.chamedu_v1.data.dto.MentorProfileDetailDto;
+import com.example.chamedu_v1.data.dto.*;
 import com.example.chamedu_v1.data.entity.*;
 import com.example.chamedu_v1.data.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -112,6 +111,34 @@ public class MentorProfileDetailService {
         RoomDto roomDto=new RoomDto(saveRoom,_mentorId,menteeId);
 
         return roomDto;
+    }
+
+    @Transactional
+    public ReviewDto createReview(int _mentorId, String menteeUserId, ReviewRequestDto reviewDto){
+        Mentee mentee = menteeRepository.findByUserId(menteeUserId);
+        Mentor mentor = mentorRepository.findByMentorId(_mentorId);
+
+        int mentorId=_mentorId;
+        int menteeId=mentee.getMenteeId();
+        String title=reviewDto.getTitle();
+        String content=reviewDto.getContent();
+        int score=reviewDto.getScore();
+
+        Review review = new Review();
+        review.setMentee(mentee);
+        review.setMentor(mentor);
+
+        review.setScore(score);
+        review.setTitle(title);
+        review.setContent(content);
+
+        review.setCreatedTime(new Timestamp(System.currentTimeMillis()));
+
+
+        Review saveReview= reviewRepository.save(review);
+        ReviewDto newReviewDto=new ReviewDto(saveReview,_mentorId,menteeId);
+
+        return newReviewDto;
     }
 
 

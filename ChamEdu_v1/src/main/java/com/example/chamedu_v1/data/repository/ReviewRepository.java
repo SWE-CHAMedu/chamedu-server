@@ -1,6 +1,7 @@
 package com.example.chamedu_v1.data.repository;
 
 import com.example.chamedu_v1.data.entity.Review;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,6 +22,8 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
     @Query("SELECT COALESCE(AVG(review.score), 0) FROM Review review WHERE review.mentor.userId = :userId")
     float findAveragePointByMentorUserId(@Param("userId") String userId);
+    @Transactional
+    void deleteById(int id);
 
 
 
