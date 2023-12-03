@@ -8,12 +8,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Time;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.Temporal;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -96,6 +100,7 @@ public class MentorMyPageService {
         myPageDto.setNickname(mentorInfo.getNickname());
         myPageDto.setAdmissionType(profileInfo.getAdmissionType());
         myPageDto.setUniversity(profileInfo.getUniversity());
+        myPageDto.setCollege(profileInfo.getCollege());
         myPageDto.setPromotionText(profileInfo.getPromotionText());
         myPageDto.setAvgScore(avgScore);
         myPageDto.setRequestRoomCount(requestRoomCount);
@@ -120,6 +125,17 @@ public class MentorMyPageService {
 
         return myPageDto;
     }
+
+//    private String encodeImageToBase64(String fileName) {
+//        try {
+//            Path imagePath = Paths.get("src/main/images/" + fileName); // 이미지 파일 경로 지정
+//            byte[] imageBytes = Files.readAllBytes(imagePath);
+//            return Base64.getEncoder().encodeToString(imageBytes);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
 
 
@@ -154,7 +170,7 @@ public class MentorMyPageService {
 
 
         List<ChatHistoryResponseDto> roomDtoList = roomHistory.stream()
-                .filter(room -> "D".equals(String.valueOf(room.getStatus())))
+                .filter(room -> "C".equals(String.valueOf(room.getStatus())))
                 .map(room -> {
                     ChatHistoryResponseDto dto = new ChatHistoryResponseDto();
                     Mentee mentee = menteeRepository.findByMenteeId(room.getMentee().getMenteeId());

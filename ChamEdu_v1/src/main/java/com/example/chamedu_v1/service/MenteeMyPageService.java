@@ -78,6 +78,7 @@ public class MenteeMyPageService {
         List<Room> roomList = roomRepository.findAllByMentee_UserId(userId);
 
         List<RoomMyPageResponseDto> roomDtoList = roomList.stream()
+                .filter(room -> !"C".equals(String.valueOf(room.getStatus())))
                 .map(room -> {
                     RoomMyPageResponseDto roomDto = new RoomMyPageResponseDto();
                     roomDto.setRoomId(room.getRoomId());
@@ -127,7 +128,7 @@ public class MenteeMyPageService {
 
 
         List<ChatHistoryResponseDto> roomDtoList = roomHistory.stream()
-                .filter(room -> "D".equals(String.valueOf(room.getStatus())))
+                .filter(room -> "C".equals(String.valueOf(room.getStatus())))
                 .map(room -> {
                     ChatHistoryResponseDto dto = new ChatHistoryResponseDto();
                     Mentor mentor = mentorRepository.findByMentorId(room.getMentor().getMentorId());

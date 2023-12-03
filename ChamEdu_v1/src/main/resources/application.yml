@@ -3,6 +3,8 @@ spring:
     multipart:
       maxFileSize: 10MB
       maxRequestSize: 20MB
+#  mvc:
+#    static-path-pattern: /images/**
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
