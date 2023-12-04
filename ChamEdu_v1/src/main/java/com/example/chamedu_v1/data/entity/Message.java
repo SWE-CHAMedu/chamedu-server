@@ -3,7 +3,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Builder
 @AllArgsConstructor
@@ -15,22 +14,20 @@ import java.util.Date;
 public class Message {
 
     @Id
-    @Column(name = "session_id")
-    private int sessionId; // 자식 테이블의 기본 키
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "message_id")
+    private int messageId;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "session_id")
-    private Room room; // 부모 테이블의 기본 키를 참조하는 외래 키
+    @ManyToOne
+    @JoinColumn(name = "room_id", nullable = false)
+    private Room room;
 
     @Column(nullable = false)
     private String content;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    private Date sendTime;
-
     @Column(nullable = false)
     private String sender;
 
+    @Column(nullable = false)
+    private LocalDateTime sendTime=LocalDateTime.now();
 }
