@@ -1,6 +1,7 @@
 package com.example.chamedu_v1.data.dto;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ public class MenteeProfileUpdateDto {
     private String wishUniv;
     private int wishCollege;
     private int wishAdmissionType;
-    private String userImg;
+    //private MultipartFile userImg;
 }

@@ -2,7 +2,9 @@ package com.example.chamedu_v1.controller;
 
 import com.example.chamedu_v1.data.dto.*;
 
+import com.example.chamedu_v1.data.repository.ProfileRepository;
 import com.example.chamedu_v1.service.MentorProfileDetailService;
+import com.example.chamedu_v1.service.MentorProfileListService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,11 @@ import java.util.List;
 @CrossOrigin
 @RestController
 public class MentorProfileDetailController {
+    private final MentorProfileDetailService mentorProfileDetailService;
     @Autowired
-    private MentorProfileDetailService mentorProfileDetailService;
+    public MentorProfileDetailController(MentorProfileDetailService mentorProfileDetailService, ProfileRepository profileRepository) {
+        this.mentorProfileDetailService = mentorProfileDetailService;
+    }
 
     /**
      * 멘토 프로필 조회

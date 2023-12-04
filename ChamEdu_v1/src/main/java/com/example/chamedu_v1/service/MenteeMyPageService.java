@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -52,6 +53,10 @@ public class MenteeMyPageService {
         int chatCount = roomRepository.countByMentee_UserId(userId);
         int reviewCount = reviewRepository.countByMentee_UserId(userId);
 
+        // 멘티 userId로 해당 게시글 첨부파일 전체 조회
+        MenteeImageFile menteeImageFile = menteeProfileImgRepository.findByMentee_UserId(userId);
+        int fileId=menteeImageFile.getId();
+
         MenteeProfileResponseDto myPageDto = new MenteeProfileResponseDto();
         LocalDateTime currentDate = LocalDateTime.now();
 
@@ -73,7 +78,7 @@ public class MenteeMyPageService {
             myPageDto.setCurrentChatTime("상담 예정 시간이 없습니다.");
         }
 
-        //myPageDto.setUserImg(menteeInfo.getProfileImg());
+        myPageDto.setUserImg(fileId);
         myPageDto.setNickname(menteeInfo.getNickname());
         myPageDto.setWishCollege(menteeInfo.getWishCollege());
         myPageDto.setPromotionText(menteeInfo.getInfo());
@@ -107,6 +112,30 @@ public class MenteeMyPageService {
 
 
     public Mentee updateMenteeProfile(String userId, MenteeProfileUpdateDto profileUpdateDto, MultipartFile file){
+//        String content=profileUpdateDto.nickName();
+//        String title=profileUpdateDto.getTitle();
+//
+//        Post post=new Post();
+//        post.setContent(content);
+//        post.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+//        post.setUser(userRepository.findByUsername(authentication.getName()));
+//        post.setTitle(title);
+//
+//        List<PostFile> postFileList = fileHandler.parseFileInfo(post,files);
+//        int userNumber=userRepository.findByUsername(authentication.getName()).getUserNumber();
+//
+//        // 파일이 존재할 때에만 처리
+//        if(!postFileList.isEmpty()) {
+//            for(PostFile postFile : postFileList) {
+//                // 파일을 DB에 저장
+//                post.addPostFile(postFileRepository.save(postFile));
+//                //PostFile saveFile=PostFileRepository.save(postFile);
+//            }
+//            post.setPostFileList(postFileList);
+//
+//        }
+//        Post savePost=postRepository.save(post);
+//        return new PostDto(savePost,userNumber);
         Mentee menteeInfo = menteeRepository.findByUserId(userId);
         MenteeImageFile menteeImageFile = menteeProfileImgRepository.findByMentee_UserId(userId);
 
@@ -117,6 +146,7 @@ public class MenteeMyPageService {
                     .origFileName(file.getOriginalFilename())
                     .filePath(imageUrl)
                     .fileSize(file.getSize())
+                    .mentee(menteeInfo)
                     .build();
         } else {
             // 이미지가 존재하는 경우 기존 이미지 업데이트

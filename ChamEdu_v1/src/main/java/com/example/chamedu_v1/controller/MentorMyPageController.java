@@ -1,29 +1,16 @@
 package com.example.chamedu_v1.controller;
 
 import com.example.chamedu_v1.data.dto.*;
-import com.example.chamedu_v1.data.entity.Mentee;
-import com.example.chamedu_v1.data.entity.Mentor;
 import com.example.chamedu_v1.data.entity.Profile;
-import com.example.chamedu_v1.data.entity.Room;
+import com.example.chamedu_v1.service.ProfileImgService;
 import com.example.chamedu_v1.service.MentorMyPageService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 import java.util.List;
 
@@ -35,7 +22,7 @@ public class MentorMyPageController {
     private MentorMyPageService mentorMyPageService;
 
     @Autowired
-    public MentorMyPageController(MentorMyPageService mentorMyPageService){
+    public MentorMyPageController(MentorMyPageService mentorMyPageService,ProfileImgService profileImgService){
         this.mentorMyPageService = mentorMyPageService;
     }
 
@@ -43,9 +30,7 @@ public class MentorMyPageController {
     public ResponseEntity<MentorProfileResponseDto> getMentorMyPage(HttpServletRequest request){
 
         HttpSession session = request.getSession();
-
         String userId = (String)session.getAttribute("userId");
-
         MentorProfileResponseDto dto = mentorMyPageService.getUserInfo(userId);
 
         return ResponseEntity.ok(dto);

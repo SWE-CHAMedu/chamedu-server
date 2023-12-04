@@ -100,6 +100,10 @@ public class MentorMyPageService {
         float avgScore = reviewRepository.findAveragePointByMentorUserId(userId);
         int requestRoomCount = roomRepository.countByMentor_UserId(userId);
 
+        // 멘토 userId로 해당 게시글 첨부파일 전체 조회
+        MentorImageFile mentorImageFile = mentorProfileImgRepository.findByMentor_UserId(userId);
+        int fileId=mentorImageFile.getId();
+
         MentorProfileResponseDto myPageDto = new MentorProfileResponseDto();
 
         if (room != null && room.getStartDate() != null) {
@@ -120,7 +124,7 @@ public class MentorMyPageService {
             myPageDto.setCurrentChatTime("상담 예정 시간이 없습니다.");
         }
 
-        //myPageDto.setUserImg(profileInfo.getProfileImg());
+        myPageDto.setUserImg(fileId);
         myPageDto.setNickname(mentorInfo.getNickname());
         myPageDto.setAdmissionType(profileInfo.getAdmissionType());
         myPageDto.setUniversity(profileInfo.getUniversity());
