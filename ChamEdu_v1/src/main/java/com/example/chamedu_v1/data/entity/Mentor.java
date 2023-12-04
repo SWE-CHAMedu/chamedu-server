@@ -59,5 +59,4 @@ public class Mentor {
 
     protected void Member() {} //기본 생성자는 protected 로 막는다.
 
-
 }

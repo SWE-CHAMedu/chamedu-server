@@ -27,20 +27,6 @@ public class RoomDto {
 
     private String chatTitle;
 
-//    public RoomDto(Room saveRoom){
-//
-//        mentee=saveRoom.getMentee();
-//        mentor=saveRoom.getMentor();
-////
-////        menteeId=saveRoom.getMentee().getMenteeId();
-////        mentorId=saveRoom.getMentor().getMentorId();
-//
-//        startDate=saveRoom.getStartDate();
-//        endDate=saveRoom.getEndDate();
-//        status=saveRoom.getStatus();
-//        chatTitle=saveRoom.getChatTitle();
-//    }
-
     public RoomDto(Room saveRoom,int _mentorId, int _menteeId){
 
 //        mentee=saveRoom.getMentee();

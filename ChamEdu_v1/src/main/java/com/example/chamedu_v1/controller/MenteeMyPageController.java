@@ -1,9 +1,6 @@
 package com.example.chamedu_v1.controller;
 
-import com.example.chamedu_v1.data.dto.ChatHistoryResponseDto;
-import com.example.chamedu_v1.data.dto.MenteeProfileResponseDto;
-import com.example.chamedu_v1.data.dto.MenteeProfileUpdateDto;
-import com.example.chamedu_v1.data.dto.MentorProfileResponseDto;
+import com.example.chamedu_v1.data.dto.*;
 import com.example.chamedu_v1.data.entity.Mentee;
 import com.example.chamedu_v1.data.entity.Mentor;
 import com.example.chamedu_v1.service.MenteeMyPageService;
@@ -74,9 +71,23 @@ public class MenteeMyPageController {
         String menteeUserId = (String)session.getAttribute("userId");
         if (menteeUserId != null) {
             return ResponseEntity.ok(menteeMyPageService.deleteReview(review_id));
+        }else{
+            return ResponseEntity.ok("로그인이 필요합니다");
         }
-        return ResponseEntity.ok("fail");
+
     }
+//
+//    @GetMapping("/review")
+//    public ResponseEntity<List<ReviewDto>> getReviewList(HttpServletRequest request){
+//        HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
+//        String menteeUserId = (String)session.getAttribute("userId");
+//        //if (menteeUserId != null) {
+//            return ResponseEntity.ok(menteeMyPageService.getReviewList(menteeUserId));
+//        //}else{
+//            //return ResponseEntity.ok("로그인이 필요합니다");
+//        //}
+
+//    }
 
 
 }

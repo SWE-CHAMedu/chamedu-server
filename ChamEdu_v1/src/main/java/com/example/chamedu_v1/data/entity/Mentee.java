@@ -22,7 +22,6 @@ public class Mentee {
     @Column(name = "mentee_id")
     private int menteeId;
 
-
     @Column(nullable = false, unique = true)
     private String userId;
 
@@ -51,11 +50,10 @@ public class Mentee {
     @ColumnDefault("0")
     private int point;
 
-    @Column
-    private String profileImg;
-
     @OneToMany(mappedBy = "mentee",cascade = CascadeType.REMOVE)
     private List<Payment> paymentList = new ArrayList<>();
 
+//    @OneToMany(mappedBy = "review",cascade = CascadeType.REMOVE)
+//    private List<Review> reviewList = new ArrayList<>();
 
 }

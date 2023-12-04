@@ -44,10 +44,6 @@ public class Profile {
     @ColumnDefault("0")
     private float avgScore;
 
-    @Column
-    private String profileImg;
-
-
     @OneToOne
     @JoinColumn(name ="mentorId")
     private Mentor mentor;

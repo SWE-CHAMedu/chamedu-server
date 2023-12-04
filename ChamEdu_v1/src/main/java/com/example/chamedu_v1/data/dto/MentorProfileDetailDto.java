@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class MentorProfileDetailDto {
 
-    private String profileImg;
+    //private String profileImg;
     private String nickname;
 
     private String university;
@@ -32,7 +32,7 @@ public class MentorProfileDetailDto {
     private List<ReviewDto> reviewList;
 
     public MentorProfileDetailDto(Profile profile) {
-        profileImg = profile.getProfileImg();
+        //profileImg = profile.getProfileImg();
         nickname = profile.getMentor().getNickname();
 
         university= profile.getUniversity();

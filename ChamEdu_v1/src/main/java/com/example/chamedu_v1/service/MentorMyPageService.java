@@ -115,7 +115,7 @@ public class MentorMyPageService {
             myPageDto.setCurrentChatTime("상담 예정 시간이 없습니다.");
         }
 
-        myPageDto.setUserImg(profileInfo.getProfileImg());
+        //myPageDto.setUserImg(profileInfo.getProfileImg());
         myPageDto.setNickname(mentorInfo.getNickname());
         myPageDto.setAdmissionType(profileInfo.getAdmissionType());
         myPageDto.setUniversity(profileInfo.getUniversity());
@@ -164,7 +164,7 @@ public class MentorMyPageService {
         Mentor mentorInfo = mentorRepository.findByUserId(userId);
 
         mentorInfo.setNickname(updateDto.getNickName());
-        profileInfo.setProfileImg(updateDto.getUserImg());
+        //profileInfo.setProfileImg(updateDto.getUserImg());
         profileInfo.setUniversity(updateDto.getUniversity());
         profileInfo.setCollege(updateDto.getCollege());
         profileInfo.setAdmissionType(updateDto.getAdmissionType());

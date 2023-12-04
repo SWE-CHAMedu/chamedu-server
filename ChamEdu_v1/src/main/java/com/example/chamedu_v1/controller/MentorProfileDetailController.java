@@ -2,22 +2,15 @@ package com.example.chamedu_v1.controller;
 
 import com.example.chamedu_v1.data.dto.*;
 
-import com.example.chamedu_v1.data.entity.Mentee;
-import com.example.chamedu_v1.data.entity.Mentor;
-import com.example.chamedu_v1.data.entity.Room;
 import com.example.chamedu_v1.service.MentorProfileDetailService;
-import com.example.chamedu_v1.service.MentorProfileListService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
-//import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;
-import java.util.Date;
 import java.util.List;
 
 @CrossOrigin
@@ -25,9 +18,6 @@ import java.util.List;
 public class MentorProfileDetailController {
     @Autowired
     private MentorProfileDetailService mentorProfileDetailService;
-
-    @Autowired
-    private MentorProfileListService mentorProfileListService;
 
     /**
      * 멘토 프로필 조회

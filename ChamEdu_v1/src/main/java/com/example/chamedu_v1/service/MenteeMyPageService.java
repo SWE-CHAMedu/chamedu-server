@@ -68,7 +68,7 @@ public class MenteeMyPageService {
             myPageDto.setCurrentChatTime("상담 예정 시간이 없습니다.");
         }
 
-        myPageDto.setUserImg(menteeInfo.getProfileImg());
+        //myPageDto.setUserImg(menteeInfo.getProfileImg());
         myPageDto.setNickname(menteeInfo.getNickname());
         myPageDto.setWishCollege(menteeInfo.getWishCollege());
         myPageDto.setPromotionText(menteeInfo.getInfo());
@@ -109,7 +109,7 @@ public class MenteeMyPageService {
         menteeInfo.setWishUniv(profileUpdateDto.getWishUniv());
         menteeInfo.setWishCollege(profileUpdateDto.getWishCollege());
         menteeInfo.setWishAdmissionType(profileUpdateDto.getWishAdmissionType());
-        menteeInfo.setProfileImg(profileUpdateDto.getUserImg());
+        //menteeInfo.setProfileImg(profileUpdateDto.getUserImg());
 
         menteeRepository.save(menteeInfo);
 
@@ -148,14 +148,20 @@ public class MenteeMyPageService {
                 })
                 .collect(Collectors.toList());
 
-
-
         return roomDtoList;
     }
+
 
     @Transactional
     public String deleteReview(int reviewId) {
         reviewRepository.deleteById(reviewId);
         return "리뷰가 삭제되었습니다.";
     }
+//
+//    public List<ReviewDto> getReviewList(int menteeUserId) {
+//        reviewRepository.findAllByMenteeUserId(menteeUserId);
+//        return "리뷰가 삭제되었습니다.";
+//    }
+
+
 }
