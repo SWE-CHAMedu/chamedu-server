@@ -9,11 +9,20 @@ import com.example.chamedu_v1.service.MentorMyPageService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import java.util.List;
@@ -67,11 +76,14 @@ public class MentorMyPageController {
 
 
     @PutMapping("/mentor-mypage/profile/update")
-    public ResponseEntity<String> updateMentorProfile(HttpServletRequest request, @RequestBody MentorProfileUpdateRequestDto updateRequestDto){
+    public ResponseEntity<String> updateMentorProfile(HttpServletRequest request, @RequestPart("updateRequestDto") MentorProfileUpdateRequestDto updateRequestDto,
+                                                      @RequestPart("file") MultipartFile file){
 
         HttpSession session = request.getSession();
         String userId = (String)session.getAttribute(USER_ID);
-        Profile mentorInfo = mentorMyPageService.updateMentorProfile(userId, updateRequestDto);
+
+
+        Profile mentorInfo = mentorMyPageService.updateMentorProfile(userId, updateRequestDto, file);
 
         if(mentorInfo!=null){
             return ResponseEntity.ok("회원 정보 수정에 성공하였습니다.");
@@ -91,6 +103,7 @@ public class MentorMyPageController {
 
         return ResponseEntity.ok(chatHistoryList);
     }
+
 
 
 

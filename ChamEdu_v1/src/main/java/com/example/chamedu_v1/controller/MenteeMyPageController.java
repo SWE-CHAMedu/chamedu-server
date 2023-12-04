@@ -11,6 +11,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -39,12 +40,13 @@ public class MenteeMyPageController {
     }
 
     @PutMapping("/mentee-mypage/profile/update")
-    public ResponseEntity<String> updateMenteeProfile(HttpServletRequest request,@RequestBody MenteeProfileUpdateDto profileUpdateDto){
+    public ResponseEntity<String> updateMenteeProfile(HttpServletRequest request, @RequestPart("updateRequestDto") MenteeProfileUpdateDto profileUpdateDto,
+                                                      @RequestPart("file") MultipartFile file){
 
         HttpSession session = request.getSession();
         String userId = (String)session.getAttribute("userId");
 
-        Mentee menteeInfo = menteeMyPageService.updateMenteeProfile(userId,profileUpdateDto);
+        Mentee menteeInfo = menteeMyPageService.updateMenteeProfile(userId,profileUpdateDto,file);
 
         if(menteeInfo!=null){
             return ResponseEntity.ok("회원 정보 수정에 성공하셨습니다!");

@@ -29,7 +29,6 @@ public class MentorAccessServiceImpl implements MentorAccessService {
         mentor.setPassword(mentorJoinRequestDto.getPassword());
         mentor.setNickname(mentorJoinRequestDto.getNickname());
         mentor.setName(mentorJoinRequestDto.getName());
-        mentor.setUserImg(mentorJoinRequestDto.getUserImg());
         mentorRepository.save(mentor); // 멘토 엔티티 저장
 
         Profile profile= new Profile();

@@ -1,13 +1,17 @@
 package com.example.chamedu_v1.service;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import com.example.chamedu_v1.data.dto.*;
 import com.example.chamedu_v1.data.entity.*;
 import com.example.chamedu_v1.data.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,9 +22,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.Temporal;
-import java.util.Base64;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -39,6 +41,9 @@ public class MentorMyPageService {
     private RoomRepository roomRepository;
     @Autowired
     private MenteeRepository menteeRepository;
+    @Autowired
+    private MentorProfileImgRepository mentorProfileImgRepository;
+
 
     // 상담목록 조회 ('W'는 신청목록, 'A'는 예정목록)
     public List<ChatInfoDto> checkChatRequests(String userId, char status) {
@@ -159,12 +164,29 @@ public class MentorMyPageService {
 
 
 
-    public Profile updateMentorProfile(String userId, MentorProfileUpdateRequestDto updateDto){
+    public Profile updateMentorProfile(String userId, MentorProfileUpdateRequestDto updateDto, MultipartFile file){
         Profile profileInfo = profileRepository.findByMentor_UserId(userId);
         Mentor mentorInfo = mentorRepository.findByUserId(userId);
+        MentorImageFile mentorImageFile = mentorProfileImgRepository.findByMentor_UserId(userId);
+
+        String imageUrl = uploadProfileImage(file);
+
+        if (mentorImageFile == null) {
+            mentorImageFile = MentorImageFile.builder()
+                    .origFileName(file.getOriginalFilename())
+                    .filePath(imageUrl)
+                    .fileSize(file.getSize())
+                    .build();
+        } else {
+            // 이미지가 존재하는 경우 기존 이미지 업데이트
+            mentorImageFile.setOrigFileName(file.getOriginalFilename());
+            mentorImageFile.setFilePath(imageUrl);
+            mentorImageFile.setFileSize(file.getSize());
+        }
+
+
 
         mentorInfo.setNickname(updateDto.getNickName());
-        //profileInfo.setProfileImg(updateDto.getUserImg());
         profileInfo.setUniversity(updateDto.getUniversity());
         profileInfo.setCollege(updateDto.getCollege());
         profileInfo.setAdmissionType(updateDto.getAdmissionType());
@@ -176,6 +198,7 @@ public class MentorMyPageService {
 
         profileRepository.save(profileInfo);
         mentorRepository.save(mentorInfo);
+        mentorProfileImgRepository.save(mentorImageFile);
         
         return profileInfo;
     }
@@ -220,6 +243,37 @@ public class MentorMyPageService {
 
 
         return roomDtoList;
+    }
+
+
+    @Value("${upload.path}") // application.properties 또는 application.yml에 파일 업로드 경로를 설정해두어야 합니다.
+    private String uploadPath;
+    public String uploadProfileImage(MultipartFile file) {
+        try {
+            if (file != null && !file.isEmpty()) {
+                // 파일 저장 디렉토리 생성
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+
+                // 파일 이름 생성 (유니크한 이름을 사용하기 위해 UUID 사용)
+                String fileName = UUID.randomUUID().toString() + "_" + Objects.requireNonNull(file.getOriginalFilename());
+
+                // 파일 저장 경로 설정
+                Path filePath = Paths.get(uploadPath, fileName);
+
+                // 파일 저장
+                file.transferTo(filePath);
+
+                // 파일 URL 반환 (실제 프로덕션 환경에서는 CDN 등을 사용하여 별도로 관리하는 것이 좋음)
+                return "/uploads/" + fileName; // 예시 경로입니다. 실제 경로에 맞게 수정하세요.
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); // 예외 처리는 적절히 수행하세요.
+        }
+
+        return null; // 업로드 실패 시 null 반환 또는 적절한 처리를 하세요.
     }
 
 
