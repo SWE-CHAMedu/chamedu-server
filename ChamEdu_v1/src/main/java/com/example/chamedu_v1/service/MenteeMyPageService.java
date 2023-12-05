@@ -52,9 +52,10 @@ public class MenteeMyPageService {
         Room scheduledroom = roomRepository.findFirstByMentee_UserIdOrderByStartDateDesc(userId);
         int chatCount = roomRepository.countByMentee_UserId(userId);
         int reviewCount = reviewRepository.countByMentee_UserId(userId);
+        MenteeImageFile menteeImageFile = menteeProfileImgRepository.findByMentee_UserId(userId);
 
         // 멘티 userId로 해당 게시글 첨부파일 전체 조회
-        MenteeImageFile menteeImageFile = menteeProfileImgRepository.findByMentee_UserId(userId);
+//        MenteeImageFile menteeImageFile = menteeProfileImgRepository.findByMentee_UserId(userId);
         int fileId=menteeImageFile.getId();
 
         MenteeProfileResponseDto myPageDto = new MenteeProfileResponseDto();
@@ -99,7 +100,7 @@ public class MenteeMyPageService {
                     roomDto.setStartTime(roomStartDate);
                     roomDto.setEndTime(roomEndDate);
                     roomDto.setStatus(room.getStatus());
-                    roomDto.setTitle(roomDto.getTitle());
+                    roomDto.setTitle(room.getChatTitle());
                     roomDto.setMentorName(room.getMentor().getNickname());
                     // 필요한 다른 정보들도 설정해야 합니다.
                     return roomDto;
