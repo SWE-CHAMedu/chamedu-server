@@ -4,6 +4,7 @@ spring:
       maxFileSize: 10MB
       maxRequestSize: 20MB
 
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://chamedu-mysql.ckoldtvydv7j.ap-northeast-2.rds.amazonaws.com:3306/chamdb?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
