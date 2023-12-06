@@ -52,11 +52,7 @@ public class MenteeMyPageService {
         Room scheduledroom = roomRepository.findFirstByMentee_UserIdOrderByStartDateDesc(userId);
         int chatCount = roomRepository.countByMentee_UserId(userId);
         int reviewCount = reviewRepository.countByMentee_UserId(userId);
-        MenteeImageFile menteeImageFile = menteeProfileImgRepository.findByMentee_UserId(userId);
 
-        // 멘티 userId로 해당 게시글 첨부파일 전체 조회
-//        MenteeImageFile menteeImageFile = menteeProfileImgRepository.findByMentee_UserId(userId);
-        int fileId=menteeImageFile.getId();
 
         MenteeProfileResponseDto myPageDto = new MenteeProfileResponseDto();
         LocalDateTime currentDate = LocalDateTime.now();

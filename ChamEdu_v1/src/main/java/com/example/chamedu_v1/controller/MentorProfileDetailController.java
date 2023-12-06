@@ -54,10 +54,9 @@ public class MentorProfileDetailController {
     @PostMapping("/mentor-profile/request/{mentorId}")
     public ResponseEntity<?> requestChat (@RequestBody ChatRequestDto chatRequestDto, @PathVariable int mentorId, HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
-        String mentorUserId = (String)session.getAttribute("userId");
+        String menteeUserId = (String)session.getAttribute("userId");
 
-        if (mentorUserId != null) {
-            String menteeUserId = (String) session.getAttribute("userId");
+        if (menteeUserId != null) {
             return ResponseEntity.ok(mentorProfileDetailService.createChatRequest(mentorId, menteeUserId, chatRequestDto));
         } else {
             // 세션이 존재하지 않을 때 로그인이 필요
