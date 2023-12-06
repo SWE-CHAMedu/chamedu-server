@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;
@@ -50,32 +50,33 @@ public class MentorProfileDetailController {
     /**
      * 멘토 상담신청 팝업 - 신청
      */
-    @PostMapping("/mentor-profile/request/{mentorId}")
-    public ResponseEntity<?> requestChat (@RequestBody ChatRequestDto chatRequestDto, @PathVariable int mentorId, HttpServletRequest request) throws Exception {
-        HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
-        String menteeUserId = (String)session.getAttribute("userId");
+    @PostMapping("/mentor-profile/request/{mentorId}/{userId}")
+    public ResponseEntity<?> requestChat (@RequestBody ChatRequestDto chatRequestDto, @PathVariable int mentorId, @PathVariable String userId, HttpServletRequest request) {
+        //HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
+        //String menteeUserId = (String)session.getAttribute("userId");
 
-        if (menteeUserId != null) {
-            return ResponseEntity.ok(mentorProfileDetailService.createChatRequest(mentorId, menteeUserId, chatRequestDto));
-        } else {
-            // 세션이 존재하지 않을 때 로그인이 필요
-            return ResponseEntity.status(500).body("로그인이 필요합니다.");
-        }
+
+//        if (menteeUserId != null) {
+            return ResponseEntity.ok(mentorProfileDetailService.createChatRequest(mentorId, userId, chatRequestDto));
+//        } else {
+//            // 세션이 존재하지 않을 때 로그인이 필요
+//            return ResponseEntity.status(500).body("로그인이 필요합니다.");
+//        }
     }
     /**
      * 멘토 리뷰 작성
      */
-    @PostMapping("/mentor-profile/review/{mentorId}")
-    public ResponseEntity<?> createReview (@RequestBody ReviewRequestDto reviewDto, @PathVariable int mentorId, HttpServletRequest request) throws Exception{
-        HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
-        String menteeUserId = (String)session.getAttribute("userId");
-        if (menteeUserId != null){
-            mentorProfileDetailService.createReview(mentorId,menteeUserId,reviewDto);
+    @PostMapping("/mentor-profile/review/{mentorId}/{userId}")
+    public ResponseEntity<?> createReview (@RequestBody ReviewRequestDto reviewDto, @PathVariable int mentorId, @PathVariable String userId, HttpServletRequest request){
+        //HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
+        //String menteeUserId = (String)session.getAttribute("userId");
+//        if (menteeUserId != null){
+            mentorProfileDetailService.createReview(mentorId,userId,reviewDto);
             return ResponseEntity.ok("리뷰가 작성되었습니다.");
 
-        }else{
-            // 세션이 존재하지 않을 때 로그인이 필요
-            return ResponseEntity.status(500).body("로그인이 필요합니다.");
-        }
+//        }else{
+//            // 세션이 존재하지 않을 때 로그인이 필요
+//            return ResponseEntity.status(500).body("로그인이 필요합니다.");
+//        }
     }
 }

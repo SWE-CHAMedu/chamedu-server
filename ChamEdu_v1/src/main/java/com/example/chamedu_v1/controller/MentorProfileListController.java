@@ -40,9 +40,7 @@ public class MentorProfileListController {
      * 멘토 둘러보기 - 최신순으로 멘토를 보여준다. 로그인하지 않아도 접속 가능
      */
     @GetMapping("/mentor-profile-list")
-    public ResponseEntity<Page<MentorProfileDto>> getProfileList(HttpServletRequest request, Pageable pageable) throws Exception{
-        HttpSession session = request.getSession();
-        String userId = (String)session.getAttribute("userId");
+    public ResponseEntity<Page<MentorProfileDto>> getProfileList(HttpServletRequest request, Pageable pageable) {
         //Pageable modifiedPageable = PageRequest.of(pageable.getPageNumber(), defaultPageSize);
         Page<MentorProfileDto> profileList = mentorProfileListService.getProfileList(pageable);
         return ResponseEntity.ok(profileList);
@@ -75,7 +73,7 @@ public class MentorProfileListController {
 //    }
 
     @GetMapping("/recommend-mentor-profile-list/{userId}")
-    public ResponseEntity<MentorProfileListDto> getRecommendProfileList(@PathVariable String userId, HttpServletRequest request) throws Exception {
+    public ResponseEntity<MentorProfileListDto> getRecommendProfileList(@PathVariable String userId, HttpServletRequest request){
 
         MentorProfileListDto recommendProfileList = mentorProfileListService.getRecommendProfileList(userId);
         return ResponseEntity.ok(recommendProfileList);

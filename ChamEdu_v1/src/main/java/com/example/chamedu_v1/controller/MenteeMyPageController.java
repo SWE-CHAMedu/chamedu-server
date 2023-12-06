@@ -58,23 +58,22 @@ public class MenteeMyPageController {
     public ResponseEntity<List<ChatHistoryResponseDto>> MenteeChatLogHistory(HttpServletRequest request){
 
         HttpSession session = request.getSession();
-
         String userId = (String)session.getAttribute("userId");
 
         List<ChatHistoryResponseDto> chatHistoryList = menteeMyPageService.chatMenteeHistory(userId);
-
         return ResponseEntity.ok(chatHistoryList);
     }
 
-    @DeleteMapping("/review/{review_id}")
-    public ResponseEntity<String> deleteReview(@PathVariable int review_id, HttpServletRequest request){
-        HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
-        String menteeUserId = (String)session.getAttribute("userId");
-        if (menteeUserId != null) {
+    @DeleteMapping("/review/{review_id}/{userId}")
+    public ResponseEntity<String> deleteReview(@PathVariable int review_id,@PathVariable String menteeUserId, HttpServletRequest request){
+        //HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
+        //String menteeUserId = (String)session.getAttribute("userId");
+
+       // if (menteeUserId != null) {
             return ResponseEntity.ok(menteeMyPageService.deleteReview(review_id));
-        }else{
-            return ResponseEntity.ok("로그인이 필요합니다");
-        }
+//        }else{
+//            return ResponseEntity.ok("로그인이 필요합니다");
+//        }
 
     }
 //
