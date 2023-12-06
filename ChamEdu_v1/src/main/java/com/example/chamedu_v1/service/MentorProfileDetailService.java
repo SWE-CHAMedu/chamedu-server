@@ -47,6 +47,7 @@ public class MentorProfileDetailService {
         return sum / reviews.size(); // 별점의 평균 반환
     }
 
+
     @Transactional
     public MentorProfileDetailDto getMentorProfileDetail(int mentorId){
         Profile profile = profileRepository.findByMentorMentorId(mentorId);

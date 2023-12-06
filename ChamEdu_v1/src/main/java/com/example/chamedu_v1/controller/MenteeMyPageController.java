@@ -26,12 +26,12 @@ public class MenteeMyPageController {
         this.menteeMyPageService = menteeMyPageService;
     }
 
-    @GetMapping("/mentee-mypage")
-    public ResponseEntity<MenteeProfileResponseDto> getMenteeMyPage(HttpServletRequest request){
+    @GetMapping("/mentee-mypage/{userId}")
+    public ResponseEntity<MenteeProfileResponseDto> getMenteeMyPage(@PathVariable String userId, HttpServletRequest request){
 
-        HttpSession session = request.getSession();
-
-        String userId = (String)session.getAttribute("userId");
+//        HttpSession session = request.getSession();
+//
+//        String userId = (String)session.getAttribute("userId");
 
         MenteeProfileResponseDto dto = menteeMyPageService.getUserInfo(userId);
 
