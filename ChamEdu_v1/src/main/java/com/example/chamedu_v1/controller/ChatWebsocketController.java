@@ -18,16 +18,16 @@ public class ChatWebsocketController {
     @Autowired
     private ChatManageService chatManageService;
 
-    @GetMapping("/{roomId}") // 버튼 누를 때
+    @GetMapping("/chat/enter/{roomId}") // 버튼 누를 때
     public ResponseEntity<String> startChat(@PathVariable Integer roomId) {
 
         if (chatManageService.checkChatNow(roomId)) { // 현재가 채팅이 가능한 시간인지 확인되면
             // 여기서 WebSocket 연결을 프론트에서 해야함.
+            return ResponseEntity.ok("채팅방으로 입장하는 중... ");
         } else {
             log.info("예약된 상담시간이 아닙니다.");
+            return ResponseEntity.ok("예약된 상담시간이 아닙니다.");
         }
-        return ResponseEntity.ok("채팅방으로 입장하는 중... ");
-        //return "redirect:/chat/" + roomId;
     }
 
 
