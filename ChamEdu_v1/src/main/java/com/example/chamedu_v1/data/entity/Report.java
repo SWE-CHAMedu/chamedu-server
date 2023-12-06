@@ -4,6 +4,7 @@ import lombok.*;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 @Builder
@@ -24,7 +25,7 @@ public class Report {
     private int reportType;
 
     @Column(nullable = false)
-    private int createTime;
+    private LocalDateTime createTime;
 
     @Column(nullable = false)
     private String status;

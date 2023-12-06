@@ -2,6 +2,9 @@ package com.example.chamedu_v1.data.repository;
 
 import com.example.chamedu_v1.data.entity.Review;
 import com.example.chamedu_v1.data.entity.Room;
+import com.example.chamedu_v1.data.entity.Mentor;
+import com.example.chamedu_v1.data.entity.Mentee;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,6 +28,13 @@ public interface RoomRepository extends JpaRepository<Room,Integer> {
 
     Room findByRoomId(int roomId);
 
+
+    // 신고 시 사용
+    @Query("SELECT r.mentor FROM Room r WHERE r.roomId = :roomId")
+    Mentor findMentorIdByRoomId(@Param("roomId") int roomId);
+
+    @Query("SELECT r.mentee FROM Room r WHERE r.roomId = :roomId")
+    Mentee findMenteeIdByRoomId(@Param("roomId") int roomId);
     @Transactional
     Room save(Room room);
 
