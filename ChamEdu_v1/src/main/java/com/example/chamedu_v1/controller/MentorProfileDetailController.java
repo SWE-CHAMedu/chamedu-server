@@ -17,6 +17,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/api")
 public class MentorProfileDetailController {
     private final MentorProfileDetailService mentorProfileDetailService;
     @Autowired
