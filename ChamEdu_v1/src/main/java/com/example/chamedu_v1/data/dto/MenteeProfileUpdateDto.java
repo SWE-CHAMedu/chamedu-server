@@ -12,5 +12,5 @@ public class MenteeProfileUpdateDto {
     private String wishUniv;
     private int wishCollege;
     private int wishAdmissionType;
-    //private MultipartFile userImg;
+    private MultipartFile userImg;
 }

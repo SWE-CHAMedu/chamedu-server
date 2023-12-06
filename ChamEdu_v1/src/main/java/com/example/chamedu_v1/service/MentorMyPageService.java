@@ -169,7 +169,7 @@ public class MentorMyPageService {
 
         profileRepository.save(profileInfo);
         mentorRepository.save(mentorInfo);
-        
+
         return profileInfo;
     }
 

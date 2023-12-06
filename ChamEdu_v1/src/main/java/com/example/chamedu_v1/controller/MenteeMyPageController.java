@@ -89,11 +89,11 @@ public class MenteeMyPageController {
 //        //}
 
 //    }
-    
-    
+
+
     //상담예정리스트
     //status가 A인 room만 출력 채팅예정버튼 or 채팅버튼 (url)반환 -> sw
     //상담내역리스트랑 동일
     //추가로(chatDto)만들어서 사용자 닉네임 혹은 이름 출력
-    
+
 }

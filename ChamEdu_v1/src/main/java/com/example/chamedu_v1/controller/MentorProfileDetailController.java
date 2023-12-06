@@ -50,7 +50,6 @@ public class MentorProfileDetailController {
     /**
      * 멘토 상담신청 팝업 - 신청
      */
-
     @PostMapping("/mentor-profile/request/{mentorId}")
     public ResponseEntity<?> requestChat (@RequestBody ChatRequestDto chatRequestDto, @PathVariable int mentorId, HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
