@@ -33,7 +33,7 @@ public class Profile {
     private int admissionType;
 
     @Column
-    @ColumnDefault("0")
+    @ColumnDefault("안녕하세요")
     private String promotionText;
 
     @Column
