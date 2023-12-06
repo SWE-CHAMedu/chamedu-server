@@ -61,14 +61,13 @@ public class MentorMyPageController {
 
 
     @PutMapping("/mentor-mypage/profile/update")
-    public ResponseEntity<String> updateMentorProfile(HttpServletRequest request, @RequestPart("updateRequestDto") MentorProfileUpdateRequestDto updateRequestDto,
-                                                      @RequestPart("file") MultipartFile file){
+    public ResponseEntity<String> updateMentorProfile(HttpServletRequest request, @RequestBody MentorProfileUpdateRequestDto updateRequestDto){
 
         HttpSession session = request.getSession();
         String userId = (String)session.getAttribute(USER_ID);
 
 
-        Profile mentorInfo = mentorMyPageService.updateMentorProfile(userId, updateRequestDto, file);
+        Profile mentorInfo = mentorMyPageService.updateMentorProfile(userId, updateRequestDto);
 
         if(mentorInfo!=null){
             return ResponseEntity.ok("회원 정보 수정에 성공하였습니다.");

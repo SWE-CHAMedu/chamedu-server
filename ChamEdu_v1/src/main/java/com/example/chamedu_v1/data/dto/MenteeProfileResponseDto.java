@@ -7,7 +7,6 @@ import java.util.List;
 @Data
 public class MenteeProfileResponseDto {
 
-    private int userImg;
     private String nickname;
     private int wishCollege;
     private String promotionText;

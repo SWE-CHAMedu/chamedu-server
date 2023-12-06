@@ -40,13 +40,12 @@ public class MenteeMyPageController {
     }
 
     @PutMapping("/mentee-mypage/profile/update")
-    public ResponseEntity<String> updateMenteeProfile(HttpServletRequest request, @RequestPart("updateRequestDto") MenteeProfileUpdateDto profileUpdateDto,
-                                                      @RequestPart("file") MultipartFile file){
+    public ResponseEntity<String> updateMenteeProfile(HttpServletRequest request, @RequestBody MenteeProfileUpdateDto profileUpdateDto){
 
         HttpSession session = request.getSession();
         String userId = (String)session.getAttribute("userId");
 
-        Mentee menteeInfo = menteeMyPageService.updateMenteeProfile(userId,profileUpdateDto,file);
+        Mentee menteeInfo = menteeMyPageService.updateMenteeProfile(userId,profileUpdateDto);
 
         if(menteeInfo!=null){
             return ResponseEntity.ok("회원 정보 수정에 성공하셨습니다!");
@@ -90,6 +89,11 @@ public class MenteeMyPageController {
 //        //}
 
 //    }
-
-
+    
+    
+    //상담예정리스트
+    //status가 A인 room만 출력 채팅예정버튼 or 채팅버튼 (url)반환 -> sw
+    //상담내역리스트랑 동일
+    //추가로(chatDto)만들어서 사용자 닉네임 혹은 이름 출력
+    
 }

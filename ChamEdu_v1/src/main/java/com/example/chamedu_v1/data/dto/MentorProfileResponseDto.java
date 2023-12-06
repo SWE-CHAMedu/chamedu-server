@@ -12,7 +12,6 @@ import java.util.List;
 
 @Data
 public class MentorProfileResponseDto {
-    private  int userImg;
     private int admissionType;
     private String nickname;
     private String university;
