@@ -14,7 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/report")
+@RequestMapping("/api/report")
+@CrossOrigin(origins = "*", methods = RequestMethod.GET)
 public class ReportController {
 
     private final ReportService reportService;
