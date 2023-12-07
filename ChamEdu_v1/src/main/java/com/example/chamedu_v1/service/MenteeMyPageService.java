@@ -38,10 +38,6 @@ public class MenteeMyPageService {
     @Autowired
     private MentorRepository mentorRepository;
 
-    @Autowired
-    private MenteeProfileImgRepository menteeProfileImgRepository;
-
-
 
     public MenteeProfileResponseDto getUserInfo(String userId){
 
