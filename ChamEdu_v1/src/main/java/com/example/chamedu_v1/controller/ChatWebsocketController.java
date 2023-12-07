@@ -17,10 +17,21 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @Log4j2
+@RequestMapping("/api")
 public class ChatWebsocketController {
 
-    @Autowired
-    private ChatManageService chatManageService;
+//    @Autowired
+//    private ChatManageService chatManageService;
+
+//    @GetMapping("/chat/{roomId}")
+//    public String chatGET(@PathVariable Integer roomId, Model model){
+//
+//        log.info("@ChatWebsocketController, chat GET()");
+//
+//        return "/api/chat/{roomId}"; // 렌더링할 뷰 이름
+//    }
+
+
 
    /* @GetMapping("/chat/enter/{roomId}") // 버튼 누를 때
     public ResponseEntity<String> startChat(@PathVariable Integer roomId) {
@@ -50,15 +61,6 @@ public class ChatWebsocketController {
         return new ResponseEntity<>(headers, HttpStatus.SWITCHING_PROTOCOLS);
     }*/
 
-
-
-//    @GetMapping("/chat/{roomId}")
-//    public String chatGET(@PathVariable Integer roomId, Model model){
-//
-//        log.info("@ChatWebsocketController, chat GET()");
-//
-//        return "chat/{roomId}"; // 렌더링할 뷰 이름
-//    }
 
 
 }

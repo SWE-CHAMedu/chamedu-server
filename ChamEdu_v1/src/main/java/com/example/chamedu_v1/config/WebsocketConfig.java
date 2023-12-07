@@ -23,7 +23,7 @@ public class WebsocketConfig implements WebSocketConfigurer {
     public void registerWebSocketHandlers( @NonNull WebSocketHandlerRegistry registry) {
         try {
             log.info("WebSocket handlers 를 등록 시도..");
-            registry.addHandler(websocketHandler, "ws/chat/{roomNumber}")
+            registry.addHandler(websocketHandler, "api/chat/{roomNumber}")
                     .setAllowedOrigins("*"); // 클라이언트의 요청을 허용
             log.info("WebSocket handlers 등록 성공!");
         } catch (Exception e) {
@@ -33,4 +33,4 @@ public class WebsocketConfig implements WebSocketConfigurer {
     }
 }
 
-// 클라이언트가 ws://localhost:8080/ws/chat으로 Websocket연결 열기
+// 클라이언트가 ws://localhost:8080/ws/chat{roomId}으로 Websocket연결 열기

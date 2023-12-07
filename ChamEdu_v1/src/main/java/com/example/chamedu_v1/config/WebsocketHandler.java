@@ -41,10 +41,10 @@ public class WebsocketHandler extends TextWebSocketHandler{
         // 방탐색
         if(!list.isEmpty()) {
             // 서버가 관리하는 세션리스트
-            for(int i=0; i<list.size(); i++) {
-                String roomNumber = (String) list.get(i).get(ROOM_NUMBER); // 세션리스트의 저장된 방번호를 가져와서
-                if(roomNumber.equals(rN)) { // 같은 값의 방이 존재한다면
-                    temp = list.get(i); // 해당 방번호의 세션리스트의 존재하는 모든 object값을 가져온다.
+            for (HashMap<String, Object> stringObjectHashMap : list) {
+                String roomNumber = (String) stringObjectHashMap.get(ROOM_NUMBER); // 세션리스트의 저장된 방번호를 가져와서
+                if (roomNumber.equals(rN)) { // 같은 값의 방이 존재한다면
+                    temp = stringObjectHashMap; // 해당 방번호의 세션리스트의 존재하는 모든 object값을 가져온다.
                     break;
                 }
             }
@@ -62,7 +62,7 @@ public class WebsocketHandler extends TextWebSocketHandler{
 
         // url에서 roomNumber추출
         String url = session.getUri().toString();
-        String roomNumber = url.split("/ws/chat/")[1];
+        String roomNumber = url.split("/api/chat/")[1];
 
         // 세션리스트에 세션 추가
         int idx = list.size();
