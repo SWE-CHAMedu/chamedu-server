@@ -67,7 +67,6 @@ public class MentorMyPageService {
     }
 
 
-
     // 상담 수락 또는 거절 처리
     @Transactional
     public void answerChatRequests(ChatAnswerRequestDto chatAnswerRequestDto) {

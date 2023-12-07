@@ -1,7 +1,6 @@
 package com.example.chamedu_v1.data.dto;
 
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Time;
 import java.text.ParseException;

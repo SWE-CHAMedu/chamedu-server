@@ -2,7 +2,7 @@ package com.example.chamedu_v1.controller;
 
 import com.example.chamedu_v1.data.dto.MentorProfileImgDto;
 import com.example.chamedu_v1.data.repository.ProfileRepository;
-import com.example.chamedu_v1.service.MentorProfileDetailService;
+
 import com.example.chamedu_v1.service.ProfileImgService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;

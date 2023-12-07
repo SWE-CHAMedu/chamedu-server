@@ -2,12 +2,9 @@ package com.example.chamedu_v1.controller;
 
 import com.example.chamedu_v1.data.dto.*;
 
-import com.example.chamedu_v1.data.entity.Mentee;
-import com.example.chamedu_v1.data.entity.Review;
-import com.example.chamedu_v1.data.repository.MenteeRepository;
-import com.example.chamedu_v1.data.repository.ProfileRepository;
+
 import com.example.chamedu_v1.service.MentorProfileDetailService;
-import com.example.chamedu_v1.service.MentorProfileListService;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,16 +53,9 @@ public class MentorProfileDetailController {
      */
     @PostMapping("/mentor-profile/request/{mentorId}/{userId}")
     public ResponseEntity<?> requestChat (@RequestBody ChatRequestDto chatRequestDto, @PathVariable int mentorId, @PathVariable String userId, HttpServletRequest request) {
-        //HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
-        //String menteeUserId = (String)session.getAttribute("userId");
 
-
-//        if (menteeUserId != null) {
             return ResponseEntity.ok(mentorProfileDetailService.createChatRequest(mentorId, userId, chatRequestDto));
-//        } else {
-//            // 세션이 존재하지 않을 때 로그인이 필요
-//            return ResponseEntity.status(500).body("로그인이 필요합니다.");
-//        }
+
     }
     /**
      * 멘토 리뷰 작성

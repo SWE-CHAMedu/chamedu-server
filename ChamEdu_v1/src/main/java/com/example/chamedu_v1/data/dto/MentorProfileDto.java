@@ -1,6 +1,5 @@
 package com.example.chamedu_v1.data.dto;
 
-import com.example.chamedu_v1.data.entity.Mentor;
 import com.example.chamedu_v1.data.entity.Profile;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

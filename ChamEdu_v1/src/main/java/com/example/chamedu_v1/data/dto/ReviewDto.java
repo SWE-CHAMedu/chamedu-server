@@ -2,16 +2,8 @@ package com.example.chamedu_v1.data.dto;
 
 
 import com.example.chamedu_v1.data.entity.Review;
-import com.example.chamedu_v1.data.entity.Mentee;
-import com.example.chamedu_v1.data.entity.Mentor;
-import com.example.chamedu_v1.data.entity.Room;
 import lombok.*;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Getter
 @NoArgsConstructor

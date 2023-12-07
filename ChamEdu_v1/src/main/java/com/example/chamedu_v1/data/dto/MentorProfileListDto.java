@@ -1,11 +1,9 @@
 package com.example.chamedu_v1.data.dto;
 
 
-import com.example.chamedu_v1.data.entity.Mentor;
 import com.example.chamedu_v1.data.entity.Profile;
 import lombok.*;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,11 +26,4 @@ public class MentorProfileListDto {
         this.wishCollegeMentors = convertToDtoList(wishCollegeMentors);
     }
 
-//
-//    public MentorProfileListDto(List<Mentor> likeMentors, List<UserLikeMentor> userLikeMentors) {
-//        this.popularMentorList = mapToPopularMentorDtoList(likeMentors, userLikeMentors);
-//        this.wishAddmissionTypeMentorList = mapTowishAddmissionTypeMentorDtpList(likeMentors, userLikeMentors);
-//        this.wishCollegeMentorList = mapTowishCollegeMentorDtoList(likeMentors, userLikeMentors);
-//    }
-//
 }

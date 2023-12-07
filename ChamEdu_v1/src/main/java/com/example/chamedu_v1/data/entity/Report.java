@@ -2,11 +2,9 @@ package com.example.chamedu_v1.data.entity;
 
 import lombok.*;
 import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

@@ -1,13 +1,8 @@
 package com.example.chamedu_v1.data.dto;
 
-import com.example.chamedu_v1.data.entity.Mentor;
-import com.example.chamedu_v1.data.entity.Profile;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import lombok.Data;
+
 import java.util.List;
 
 @Data

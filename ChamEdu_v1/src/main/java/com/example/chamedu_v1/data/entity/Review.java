@@ -3,12 +3,10 @@ package com.example.chamedu_v1.data.entity;
 
 import lombok.*;
 import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

@@ -31,7 +31,6 @@ public class MenteeProfileImgDto {
         this.menteeId = menteeId;
     }
 
-
     @Builder
     public MenteeProfileImgDto(String origFileName, String filePath, Long fileSize) {
         this.origFileName = origFileName;

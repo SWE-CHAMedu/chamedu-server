@@ -1,11 +1,8 @@
 package com.example.chamedu_v1.controller;
 
-import com.example.chamedu_v1.data.dto.MenteeJoinRequestDto;
-import com.example.chamedu_v1.data.dto.MentorJoinRequestDto;
+
 import com.example.chamedu_v1.data.dto.ReportRequestDto;
-import com.example.chamedu_v1.data.entity.Mentor;
-import com.example.chamedu_v1.service.MenteeAccessService;
-import com.example.chamedu_v1.service.MentorAccessService;
+
 import com.example.chamedu_v1.service.ReportService;
 
 import jakarta.servlet.http.HttpSession;

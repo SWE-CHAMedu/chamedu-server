@@ -1,22 +1,18 @@
 package com.example.chamedu_v1.data.dto;
 
-import com.example.chamedu_v1.data.entity.Mentee;
-import com.example.chamedu_v1.data.entity.Mentor;
+
 import com.example.chamedu_v1.data.entity.Room;
-import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
 @NoArgsConstructor
 public class RoomDto {
 
-//    private Mentee mentee;
-//    private Mentor mentor;
-
+    //멘티, 멘토 객체 저장 X
     private int menteeId;
     private int mentorId;
 
@@ -28,9 +24,6 @@ public class RoomDto {
     private String chatTitle;
 
     public RoomDto(Room saveRoom,int _mentorId, int _menteeId){
-
-//        mentee=saveRoom.getMentee();
-//        mentor=saveRoom.getMentor();
 
         menteeId=_menteeId;
         mentorId=_mentorId;

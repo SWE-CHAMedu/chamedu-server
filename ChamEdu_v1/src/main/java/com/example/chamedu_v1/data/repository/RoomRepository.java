@@ -1,6 +1,5 @@
 package com.example.chamedu_v1.data.repository;
 
-import com.example.chamedu_v1.data.entity.Review;
 import com.example.chamedu_v1.data.entity.Room;
 import com.example.chamedu_v1.data.entity.Mentor;
 import com.example.chamedu_v1.data.entity.Mentee;

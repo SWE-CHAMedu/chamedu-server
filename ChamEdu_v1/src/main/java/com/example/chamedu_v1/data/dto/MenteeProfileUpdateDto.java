@@ -3,7 +3,6 @@ package com.example.chamedu_v1.data.dto;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
 
 @Data
 public class MenteeProfileUpdateDto {

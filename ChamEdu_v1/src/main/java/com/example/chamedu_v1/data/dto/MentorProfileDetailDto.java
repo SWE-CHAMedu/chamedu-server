@@ -13,7 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 public class MentorProfileDetailDto {
 
-    //private String profileImg;
     private String nickname;
 
     private String university;
@@ -22,17 +21,13 @@ public class MentorProfileDetailDto {
 
     private String promotonText;
 
-    //구현방법 고민해봐야함
-    //평균 별점
     private float avgScore;
 
-    //진행한 상담 수 - 고민해봐야함
     private int chatCount;
     private int reviewCount;
     private List<ReviewDto> reviewList;
 
     public MentorProfileDetailDto(Profile profile) {
-        //profileImg = profile.getProfileImg();
         nickname = profile.getMentor().getNickname();
 
         university= profile.getUniversity();

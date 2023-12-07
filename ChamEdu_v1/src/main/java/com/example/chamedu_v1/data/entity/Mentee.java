@@ -1,7 +1,5 @@
 package com.example.chamedu_v1.data.entity;
 
-import jakarta.validation.constraints.Email;
-
 import lombok.*;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
