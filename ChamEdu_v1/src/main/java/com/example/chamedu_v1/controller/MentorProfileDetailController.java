@@ -2,6 +2,9 @@ package com.example.chamedu_v1.controller;
 
 import com.example.chamedu_v1.data.dto.*;
 
+import com.example.chamedu_v1.data.entity.Mentee;
+import com.example.chamedu_v1.data.entity.Review;
+import com.example.chamedu_v1.data.repository.MenteeRepository;
 import com.example.chamedu_v1.data.repository.ProfileRepository;
 import com.example.chamedu_v1.service.MentorProfileDetailService;
 import com.example.chamedu_v1.service.MentorProfileListService;
@@ -21,7 +24,7 @@ import java.util.List;
 public class MentorProfileDetailController {
     private final MentorProfileDetailService mentorProfileDetailService;
     @Autowired
-    public MentorProfileDetailController(MentorProfileDetailService mentorProfileDetailService, ProfileRepository profileRepository) {
+    public MentorProfileDetailController(MentorProfileDetailService mentorProfileDetailService) {
         this.mentorProfileDetailService = mentorProfileDetailService;
     }
 

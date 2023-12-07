@@ -28,6 +28,7 @@ import static com.example.chamedu_v1.controller.UserController.USER_ID;
 public class MentorProfileListController {
     private final MentorProfileListService mentorProfileListService;
     private final ProfileRepository profileRepository;
+    public static final String USER_ID = "userId";
 
     @Autowired
     public MentorProfileListController(MentorProfileListService mentorProfileListService, ProfileRepository profileRepository) {

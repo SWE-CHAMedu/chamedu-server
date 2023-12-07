@@ -7,6 +7,7 @@ import com.example.chamedu_v1.service.MenteeMyPageService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/api")
 public class MenteeMyPageController {
+    public static final String USER_ID = "userId";
     private MenteeMyPageService menteeMyPageService;
 
 
@@ -64,8 +66,8 @@ public class MenteeMyPageController {
         return ResponseEntity.ok(chatHistoryList);
     }
 
-    @DeleteMapping("/review/{review_id}/{userId}")
-    public ResponseEntity<String> deleteReview(@PathVariable int review_id,@PathVariable String menteeUserId, HttpServletRequest request){
+    @DeleteMapping("/review/{review_id}")
+    public ResponseEntity<String> deleteReview(@PathVariable int review_id){
         //HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
         //String menteeUserId = (String)session.getAttribute("userId");
 
@@ -74,20 +76,16 @@ public class MenteeMyPageController {
 //        }else{
 //            return ResponseEntity.ok("로그인이 필요합니다");
 //        }
-
     }
-//
-//    @GetMapping("/review")
-//    public ResponseEntity<List<ReviewDto>> getReviewList(HttpServletRequest request){
-//        HttpSession session = request.getSession(); // 세션이 존재하지 않으면 null 반환
-//        String menteeUserId = (String)session.getAttribute("userId");
-//        //if (menteeUserId != null) {
-//            return ResponseEntity.ok(menteeMyPageService.getReviewList(menteeUserId));
-//        //}else{
-//            //return ResponseEntity.ok("로그인이 필요합니다");
-//        //}
-
-//    }
+    @GetMapping("/mentee-mypage/review")
+    public ResponseEntity<?> getReviewList(HttpSession session, Pageable pageable){
+        String menteeUserId = (String)session.getAttribute(USER_ID);
+        if (menteeUserId != null) {
+            return ResponseEntity.ok(menteeMyPageService.getReviewList(pageable,menteeUserId));
+        }else{
+            return ResponseEntity.ok("로그인이 필요합니다");
+        }
+    }
 
 
     //상담예정리스트
