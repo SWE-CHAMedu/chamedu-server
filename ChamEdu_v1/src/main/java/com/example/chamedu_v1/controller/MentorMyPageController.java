@@ -28,7 +28,7 @@ public class MentorMyPageController {
     public ResponseEntity<MentorProfileResponseDto> getMentorMyPage(HttpServletRequest request){
 
         HttpSession session = request.getSession();
-        String userId = (String)session.getAttribute("userId");
+        String userId = (String)session.getAttribute(USER_ID);
         MentorProfileResponseDto dto = mentorMyPageService.getUserInfo(userId);
 
         return ResponseEntity.ok(dto);
@@ -79,7 +79,7 @@ public class MentorMyPageController {
 
         HttpSession session = request.getSession();
 
-        String userId = (String)session.getAttribute("userId");
+        String userId = (String)session.getAttribute(USER_ID);
 
         List<ChatHistoryResponseDto> chatHistoryList = mentorMyPageService.chatMentorHistory(userId);
 
