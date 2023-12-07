@@ -3,6 +3,7 @@ package com.example.chamedu_v1.data.repository;
 
 import com.example.chamedu_v1.data.entity.Profile;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,6 +23,7 @@ ProfileRepository extends JpaRepository<Profile,Integer> {
 
     Page<Profile> findAllByOrderByMentorMentorIdDesc(Pageable pageable);
 
+    @Transactional
     Profile save(Profile profile);
 
     Profile findByMentor_UserId(String userId);
