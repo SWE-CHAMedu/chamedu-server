@@ -14,8 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/report")
-@CrossOrigin(origins = "*", methods = RequestMethod.GET)
+@RequestMapping("/api")
 public class ReportController {
 
     private final ReportService reportService;
@@ -25,13 +24,13 @@ public class ReportController {
     }
 
     // 신고페이지로 이동
-    @GetMapping("/form")
+    @GetMapping("/report/form")
     public ResponseEntity<String> reportForm(){
         return ResponseEntity.ok("신고 Form 페이지입니다");
     }
 
     // 신고하기
-    @PostMapping("/upload")
+    @PostMapping("/report/upload")
     public ResponseEntity<String> uploadReport(@RequestBody ReportRequestDto reportRequestDto) {
         reportService.uploadReport(reportRequestDto);
         return ResponseEntity.ok("신고가 정상적으로 접수되었습니다. ");
