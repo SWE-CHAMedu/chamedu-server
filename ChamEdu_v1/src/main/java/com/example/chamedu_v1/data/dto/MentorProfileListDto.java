@@ -1,6 +1,5 @@
 package com.example.chamedu_v1.data.dto;
 
-
 import com.example.chamedu_v1.data.entity.Profile;
 import lombok.*;
 
@@ -15,6 +14,7 @@ public class MentorProfileListDto {
     private List<MentorProfileDto> popularMentors;
     private List<MentorProfileDto> wishAdmissionTypeMentors;
     private List<MentorProfileDto> wishCollegeMentors;
+
     // Convert a list of Profile to a list of MentorProfileDto
     private List<MentorProfileDto> convertToDtoList(List<Profile> profiles) {
         return profiles.stream().map(MentorProfileDto::new).collect(Collectors.toList());

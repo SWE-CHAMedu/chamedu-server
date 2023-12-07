@@ -2,7 +2,6 @@ package com.example.chamedu_v1.data.entity;
 
 import lombok.*;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Builder

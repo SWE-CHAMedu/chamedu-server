@@ -51,7 +51,4 @@ public class Mentee {
     @OneToMany(mappedBy = "mentee",cascade = CascadeType.REMOVE)
     private List<Payment> paymentList = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "review",cascade = CascadeType.REMOVE)
-//    private List<Review> reviewList = new ArrayList<>();
-
 }

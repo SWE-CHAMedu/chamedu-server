@@ -24,5 +24,4 @@ public interface MenteeRepository extends JpaRepository<Mentee,Integer> {
 
     @Query("SELECT count(Review) FROM Review review WHERE review.mentee.userId =: userId")
     int findReviewCountByUserId(@Param("userId") String userId);
-    //Mentee findByMenteeUserId(String menteeUserId);
 }

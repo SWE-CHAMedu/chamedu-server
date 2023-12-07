@@ -2,8 +2,6 @@ package com.example.chamedu_v1.data.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Builder

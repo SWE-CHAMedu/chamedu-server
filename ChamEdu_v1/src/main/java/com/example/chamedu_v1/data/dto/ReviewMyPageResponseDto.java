@@ -6,10 +6,7 @@ import lombok.Data;
 public class ReviewMyPageResponseDto {
 
     private int reviewId;
-
     private String title;
-
     private int point;
-
     private String content;
 }

@@ -6,7 +6,6 @@ import com.example.chamedu_v1.data.entity.Mentee;
 import com.example.chamedu_v1.data.entity.Profile;
 import com.example.chamedu_v1.data.repository.MenteeRepository;
 import com.example.chamedu_v1.data.repository.ProfileRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.sql.Time;
-import java.util.List;
-
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

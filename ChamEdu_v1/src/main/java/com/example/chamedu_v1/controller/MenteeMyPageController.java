@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +20,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class MenteeMyPageController {
     public static final String USER_ID = "userId";
-    private MenteeMyPageService menteeMyPageService;
+    private final MenteeMyPageService menteeMyPageService;
 
 
     public MenteeMyPageController(MenteeMyPageService menteeMyPageService){
@@ -41,7 +40,7 @@ public class MenteeMyPageController {
     public ResponseEntity<String> updateMenteeProfile(HttpServletRequest request, @RequestBody MenteeProfileUpdateDto profileUpdateDto){
 
         HttpSession session = request.getSession();
-        String userId = (String)session.getAttribute("userId");
+        String userId = (String)session.getAttribute(USER_ID);
 
         Mentee menteeInfo = menteeMyPageService.updateMenteeProfile(userId,profileUpdateDto);
 
@@ -64,7 +63,6 @@ public class MenteeMyPageController {
 
     @DeleteMapping("/review/{review_id}")
     public ResponseEntity<String> deleteReview(@PathVariable int review_id){
-
             return ResponseEntity.ok(menteeMyPageService.deleteReview(review_id));
 
     }

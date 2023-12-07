@@ -8,16 +8,13 @@ import lombok.*;
 @Getter
 @NoArgsConstructor
 public class ReviewDto {
-    //private int reviewId;
     private int mentorId;
     private int menteeId;
     private String title;
     private String content;
     private int score;
 
-
     public ReviewDto(Review review){
-        //reviewId=review.getReviewId();
         mentorId=review.getMentor().getMentorId();
         menteeId=review.getMentee().getMenteeId();
         title=review.getTitle();

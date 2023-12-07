@@ -1,11 +1,8 @@
 package com.example.chamedu_v1.data.dto;
 
-
 import com.example.chamedu_v1.data.entity.Room;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 @Getter

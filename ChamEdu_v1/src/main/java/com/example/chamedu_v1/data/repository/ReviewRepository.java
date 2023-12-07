@@ -15,7 +15,6 @@ import java.util.List;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
-
     List<Review> findReviewsByMentorMentorId(int mentorId);
     List<Review> findAllByMentor_UserId(String userId);
 

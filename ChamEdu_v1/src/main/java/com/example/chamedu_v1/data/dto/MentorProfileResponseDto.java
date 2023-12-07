@@ -1,8 +1,6 @@
 package com.example.chamedu_v1.data.dto;
 
-
 import lombok.Data;
-
 import java.util.List;
 
 @Data

@@ -35,7 +35,7 @@ public class MentorProfileUpdateRequestDto {
                     timeList.add(sqlTime);
                 } catch (ParseException e) {
                     // 예외 처리 (예: 오류 기록)
-                    e.printStackTrace(); // 예시로 사용한 것이므로 예외를 적절히 기록해야 합니다.
+                    e.printStackTrace();
                 }
             }
         }
