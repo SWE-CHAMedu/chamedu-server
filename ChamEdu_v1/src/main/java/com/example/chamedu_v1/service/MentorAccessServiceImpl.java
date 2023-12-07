@@ -32,7 +32,6 @@ public class MentorAccessServiceImpl implements MentorAccessService {
         mentorRepository.save(mentor); // 멘토 엔티티 저장
 
         Profile profile= new Profile();
-        //profile.setProfileImg(mentorJoinRequestDto.getUserImg());
         profile.setUniversity(mentorJoinRequestDto.getUniversity());
         profile.setMentor(mentor); // 멘토와의 관계반영
         profileRepository.save(profile); // 프로필 엔티티 저장

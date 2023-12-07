@@ -2,7 +2,6 @@ package com.example.chamedu_v1.controller;
 
 import com.example.chamedu_v1.data.dto.*;
 import com.example.chamedu_v1.data.entity.Profile;
-import com.example.chamedu_v1.service.ProfileImgService;
 import com.example.chamedu_v1.service.MentorMyPageService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -21,7 +20,7 @@ public class MentorMyPageController {
     private MentorMyPageService mentorMyPageService;
 
     @Autowired
-    public MentorMyPageController(MentorMyPageService mentorMyPageService,ProfileImgService profileImgService){
+    public MentorMyPageController(MentorMyPageService mentorMyPageService){
         this.mentorMyPageService = mentorMyPageService;
     }
 

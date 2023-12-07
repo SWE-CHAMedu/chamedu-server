@@ -28,7 +28,7 @@ public class MenteeMyPageController {
     }
 
     @GetMapping("/mentee-mypage/{userId}")
-    public ResponseEntity<MenteeProfileResponseDto> getMenteeMyPage(@PathVariable String userId, HttpServletRequest request){
+    public ResponseEntity<MenteeProfileResponseDto> getMenteeMyPage(@PathVariable String userId){
 
         MenteeProfileResponseDto dto = menteeMyPageService.getUserInfo(userId);
 

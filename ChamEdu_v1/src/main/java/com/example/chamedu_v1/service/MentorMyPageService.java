@@ -35,8 +35,6 @@ public class MentorMyPageService {
     private RoomRepository roomRepository;
     @Autowired
     private MenteeRepository menteeRepository;
-    @Autowired
-    private MentorProfileImgRepository mentorProfileImgRepository;
 
 
     // 상담목록 조회 ('W'는 신청목록, 'A'는 예정목록)
