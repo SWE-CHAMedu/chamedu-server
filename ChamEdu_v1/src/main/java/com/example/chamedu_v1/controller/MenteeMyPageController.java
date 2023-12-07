@@ -55,7 +55,7 @@ public class MenteeMyPageController {
     public ResponseEntity<List<ChatHistoryResponseDto>> MenteeChatLogHistory(HttpServletRequest request){
 
         HttpSession session = request.getSession();
-        String userId = (String)session.getAttribute("userId");
+        String userId = (String)session.getAttribute(USER_ID);
 
         List<ChatHistoryResponseDto> chatHistoryList = menteeMyPageService.chatMenteeHistory(userId);
         return ResponseEntity.ok(chatHistoryList);
