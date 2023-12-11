@@ -41,7 +41,7 @@ public class MentorMyPageService {
     public List<ChatInfoDto> checkChatRequests(String userId, char status) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.KOREA);
-        List<Room> rooms= roomRepository.findAllByMentor_UserIdAndStatus(userId, status);
+        List<Room> rooms= roomRepository.findAllByMentor_UserIdAndStatusOrderByStartDate(userId, status);
         return rooms.stream()
                 .map(room -> {
                     String dateString = dateFormat.format(room.getStartDate());

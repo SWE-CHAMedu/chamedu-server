@@ -14,10 +14,10 @@ import java.util.List;
 public interface RoomRepository extends JpaRepository<Room,Integer> {
 
 
-    List<Room> findAllByMentee_UserId(String userId);
+    List<Room> findAllByMentee_UserIdOrderByStartDate(String userId);
 
     List<Room> findAllByMentor_UserId(String userId);
-    List<Room> findAllByMentor_UserIdAndStatus(String userId, char status);
+    List<Room> findAllByMentor_UserIdAndStatusOrderByStartDate(String userId, char status);
 
     Room findFirstByMentee_UserIdOrderByStartDateDesc(String userId);
     Room findFirstByMentor_UserIdOrderByStartDateDesc(String userId);

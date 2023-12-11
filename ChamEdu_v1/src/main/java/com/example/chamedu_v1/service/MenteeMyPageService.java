@@ -75,7 +75,7 @@ public class MenteeMyPageService {
         myPageDto.setEndChatCount(chatCount);
         myPageDto.setReviewCount(reviewCount);
 
-        List<Room> roomList = roomRepository.findAllByMentee_UserId(userId);
+        List<Room> roomList = roomRepository.findAllByMentee_UserIdOrderByStartDate(userId);
 
         List<RoomMyPageResponseDto> roomDtoList = roomList.stream()
                 .filter(room -> !"C".equals(String.valueOf(room.getStatus())))
@@ -122,7 +122,7 @@ public class MenteeMyPageService {
 
     public List<ChatHistoryResponseDto> chatMenteeHistory(String userId) {
         LocalDateTime currentServerTime = LocalDateTime.now();
-        List<Room> roomHistory = roomRepository.findAllByMentee_UserId(userId);
+        List<Room> roomHistory = roomRepository.findAllByMentee_UserIdOrderByStartDate(userId);
 
         List<ChatHistoryResponseDto> roomDtoList = roomHistory.stream()
                 .filter(room -> "C".equals(String.valueOf(room.getStatus())))
