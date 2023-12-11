@@ -205,9 +205,13 @@ public class MentorMyPageService {
         return roomDtoList;
     }
 
+    public HeaderUserInfoResponseDto headerMentorInfo(String userId){
+        Mentor mentorInfo = mentorRepository.findByUserId(userId);
+        HeaderUserInfoResponseDto dto = new HeaderUserInfoResponseDto();
 
-
-
+        dto.setPoint(mentorInfo.getPoint());
+        return dto;
+    }
 
 
 }

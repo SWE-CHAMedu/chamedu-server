@@ -1,12 +1,18 @@
 package com.example.chamedu_v1.controller;
 
+import com.example.chamedu_v1.data.dto.HeaderUserInfoResponseDto;
 import com.example.chamedu_v1.data.dto.MentorJoinRequestDto;
 import com.example.chamedu_v1.data.dto.MenteeJoinRequestDto;
 import com.example.chamedu_v1.data.entity.Mentee;
 import com.example.chamedu_v1.data.entity.Mentor;
+import com.example.chamedu_v1.data.repository.MenteeRepository;
+import com.example.chamedu_v1.data.repository.MentorRepository;
+import com.example.chamedu_v1.service.MenteeMyPageService;
 import com.example.chamedu_v1.service.MentorAccessService;
 import com.example.chamedu_v1.service.MenteeAccessService;
 
+import com.example.chamedu_v1.service.MentorMyPageService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +25,25 @@ public class UserController {
 
     private final MentorAccessService mentorAccessService;
     private final MenteeAccessService menteeAccessService;
+
+    private final MentorRepository mentorRepository;
+    private final MenteeRepository menteeRepository;
+
+    private final MentorMyPageService mentorMyPageService;
+
+    private final MenteeMyPageService menteeMyPageService;
     public static final String USER_ID = "userId";
     public static final String ROLE = "role";
 
     @Autowired
-    public UserController(MentorAccessService mentorAccessService, MenteeAccessService menteeAccessService) {
+    public UserController(MentorAccessService mentorAccessService, MenteeAccessService menteeAccessService, MentorRepository mentorRepository
+    ,MenteeRepository menteeRepository, MentorMyPageService mentorMyPageService, MenteeMyPageService menteeMyPageService) {
         this.mentorAccessService = mentorAccessService;
         this.menteeAccessService = menteeAccessService;
+        this.mentorRepository = mentorRepository;
+        this.menteeRepository = menteeRepository;
+        this.mentorMyPageService = mentorMyPageService;
+        this.menteeMyPageService = menteeMyPageService;
     }
 
     // 회원가입 페이지로 이동
@@ -81,6 +99,26 @@ public class UserController {
         session.removeAttribute(USER_ID);
         session.removeAttribute(ROLE);
         return ResponseEntity.ok("Logout successful");
+    }
+
+
+    @GetMapping("/header/userInfo")
+    public ResponseEntity<HeaderUserInfoResponseDto> headerUserInfo(HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        String userId = (String)session.getAttribute(USER_ID);
+
+        if(mentorRepository.findByUserId(userId)!=null){
+            HeaderUserInfoResponseDto dto = mentorMyPageService.headerMentorInfo(userId);
+            return ResponseEntity.ok(dto);
+
+        }else if(menteeRepository.findByUserId(userId)!=null){
+            HeaderUserInfoResponseDto dto = menteeMyPageService.headerMenteeInfo(userId);
+            return ResponseEntity.ok(dto);
+        }
+        else
+            return null;
+
     }
 
 }

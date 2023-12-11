@@ -169,4 +169,14 @@ public class MenteeMyPageService {
 
         return reviewRepository.findByMenteeMenteeId(pageable,menteeId).map(ReviewDto::new);
     }
+
+
+
+    public HeaderUserInfoResponseDto headerMenteeInfo(String userId){
+        Mentee menteeInfo = menteeRepository.findByUserId(userId);
+        HeaderUserInfoResponseDto dto = new HeaderUserInfoResponseDto();
+
+        dto.setPoint(menteeInfo.getPoint());
+        return dto;
+    }
 }
