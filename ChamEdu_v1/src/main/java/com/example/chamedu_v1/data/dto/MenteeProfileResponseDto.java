@@ -7,7 +7,8 @@ import java.util.List;
 public class MenteeProfileResponseDto {
 
     private String nickname;
-    private int wishCollege;
+    private int admissionType;
+    private String university;
     private String promotionText;
     private int endChatCount;
     private int reviewCount;

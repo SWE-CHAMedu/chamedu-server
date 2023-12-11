@@ -69,7 +69,8 @@ public class MenteeMyPageService {
         }
 
         myPageDto.setNickname(menteeInfo.getNickname());
-        myPageDto.setWishCollege(menteeInfo.getWishCollege());
+        myPageDto.setUniversity(menteeInfo.getWishUniv());
+        myPageDto.setAdmissionType(menteeInfo.getWishAdmissionType());
         myPageDto.setPromotionText(menteeInfo.getInfo());
         myPageDto.setPromotionText(menteeInfo.getInfo());
         myPageDto.setEndChatCount(chatCount);
