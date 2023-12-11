@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/point")
+@RequestMapping("/api")
 public class PointManageController {
 
     private final PointManageService pointManageService;
@@ -21,14 +21,14 @@ public class PointManageController {
     }
 
     // 구매목록 조회
-    @GetMapping
+    @GetMapping("/point")
     public ResponseEntity<List<Integer>> visitShop() {
         List<Integer> products = Arrays.asList(100, 500, 1000, 10000); // 몇 참 구매할 건지
         return ResponseEntity.ok(products);
     }
 
     // 구매하기
-    @PostMapping("/charge")
+    @PostMapping("/point/charge")
     public ResponseEntity<String> chargePoints(@RequestBody PointChangeRequestDto chargeDto) {
         int amount= chargeDto.getChangedPoints();
         // 결제 먼저 진행 후
@@ -37,7 +37,7 @@ public class PointManageController {
     }
 
     // 환전하기
-    @PostMapping("/exchange")
+    @PostMapping("/point/exchange")
     public ResponseEntity<String> exchangePoints(@RequestBody PointChangeRequestDto exchangeDto) {
         int amount= exchangeDto.getChangedPoints();
         // 현금화 먼저 진행 후
