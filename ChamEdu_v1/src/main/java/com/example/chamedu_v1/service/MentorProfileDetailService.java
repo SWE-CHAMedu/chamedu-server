@@ -62,15 +62,13 @@ public class MentorProfileDetailService {
         return availableTimes;
     }
 
-    public Date stringToDateConversion(String stringDate){
-        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        try {
-            Date converted = date.parse(stringDate);
-            return converted;
-        }catch (ParseException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public Date startDateConversion(Date startDate){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startDate);
+
+        calendar.add(Calendar.HOUR_OF_DAY, -9);
+        Date newStarDate = calendar.getTime();
+        return newStarDate;
     }
 
     public Date calculateEndDate(Date startDate){
@@ -93,17 +91,18 @@ public class MentorProfileDetailService {
 //        int mentorId = _mentorId;
 
         //Date wishChatSchedule=chatRequestDto.getWishChatSchedule();
-        Date starDate=chatRequestDto.getWishChatSchedule();
+        Date startDate=chatRequestDto.getWishChatSchedule();
+        Date newStartDate=startDateConversion(startDate);
         String chatTitle=chatRequestDto.getChatTitle();
 
         //Date starDate=stringToDateConversion(wishChatSchedule);
-        Date endDate=calculateEndDate(starDate);
+        Date endDate=calculateEndDate(newStartDate);
 
         Room wishChatRoom = new Room();
         wishChatRoom.setMentee(mentee);
         wishChatRoom.setMentor(mentor);
 
-        wishChatRoom.setStartDate(starDate);
+        wishChatRoom.setStartDate(newStartDate);
         wishChatRoom.setEndDate(endDate);
 
         wishChatRoom.setStatus('W');

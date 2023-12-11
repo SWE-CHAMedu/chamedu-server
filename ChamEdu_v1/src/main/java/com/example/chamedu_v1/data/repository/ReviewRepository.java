@@ -1,6 +1,7 @@
 package com.example.chamedu_v1.data.repository;
 
 import com.example.chamedu_v1.data.entity.Review;
+import com.example.chamedu_v1.data.entity.Room;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,4 +30,7 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
 
     Page<Review> findByMenteeMenteeId(Pageable pageable, int menteeId);
+
+    @Transactional
+    Review save(Review review);
 }

@@ -45,7 +45,7 @@ public class Mentor {
     @ElementCollection
     private List<Time> availableTime;   //멘토 상담가능시간 추가
 
-    @OneToMany(mappedBy = "mentor")
+    @OneToMany(mappedBy = "mentor",cascade = CascadeType.REMOVE)
     private List<Review> ReviewList = new ArrayList<Review>();
 
     @Builder // @Setter를 두지 않기 위한 어노테이션
